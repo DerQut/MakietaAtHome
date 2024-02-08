@@ -5,7 +5,11 @@ import GUIObjects
 
 import assets
 
+pygame.display.init()
+
 main_window = GUIDisplay.Window(fps_cap=150)
+
+bg_layer = GUIDisplay.Layer(main_window, (1920, 1080), (0, 0))
 
 left_layer = GUIDisplay.ScrollingLayer(main_window, (128, 1080), (0, 0), assets.Colours.black)
 
@@ -33,8 +37,9 @@ def event_action(events, mouse_pos):
 
         elif event.type == pygame.MOUSEWHEEL:
             for layer in main_window.all_layers:
-                if layer.mouse_check(mouse_pos):
-                    layer.scroll(event.x, event.y)
+                if isinstance(layer, GUIDisplay.ScrollingLayer):
+                    if layer.mouse_check(mouse_pos):
+                        layer.scroll(event.x, event.y)
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
