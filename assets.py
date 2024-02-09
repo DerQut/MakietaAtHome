@@ -37,8 +37,8 @@ class MacColours:
 class MacColoursDark:
 
     bg_colour = (28, 29, 31)
-    side_bar_colour = (37, 38, 40)
-    side_bar_inactive_colour = (94, 94, 94)
+    side_bar_inactive_colour = (37, 38, 40)
+    side_bar_colour = (94, 94, 94)
 
     blue = (10, 132, 255)
     brown = (172, 142, 104)
@@ -53,6 +53,3 @@ class MacColoursDark:
     red = (255, 69, 58)
     teal = (106, 196, 220)
     yellow = (255, 214, 10)
-
-
-circuit_board = pygame.image.load("assets/circuit_board.jpg")

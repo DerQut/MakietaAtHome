@@ -51,3 +51,50 @@ class Ellipse(Rect):
 
         if self.is_visible:
             pygame.draw.ellipse(self.layer.surface, self.fill_colour, self.rect, self.width)
+
+
+class Text:
+
+    def __init__(self, layer, font_size, position, font_colour, font_file, text, is_visible=True):
+
+        self.layer = layer
+        self.position = position
+
+        self.font_colour = font_colour
+
+        self.font_size = font_size
+        self.font_file = font_file
+        self.text = text
+        self.font = pygame.font.Font(self.font_file, self.font_size)
+        self.texture = self.font.render(self.text, True, self.font_colour)
+
+        self.is_visible = True
+
+        self.layer.gui_objects.append(self)
+
+    def draw(self):
+        if self.is_visible:
+            self.layer.surface.blit(self.texture, self.position)
+
+    def update(self):
+        self.font = pygame.font.Font(self.font_file, self.font_size)
+        self.texture = self.font.render(self.text, True, self.font_colour)
+
+
+class Image:
+
+    def __init__(self, layer, position, filename, is_visible=True):
+
+        self.filename = filename
+        self.texture = pygame.image.load(filename).convert_alpha()
+        self.position = position
+
+        self.layer = layer
+        self.is_visible = is_visible
+
+        self.layer.gui_objects.append(self)
+
+    def draw(self):
+
+        if self.is_visible:
+            self.layer.surface.blit(self.texture, self.position)

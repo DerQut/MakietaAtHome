@@ -4,6 +4,8 @@ from pygame.locals import DOUBLEBUF, FULLSCREEN
 import program
 import assets
 
+import GUIUtils
+
 
 class Window:
 
@@ -38,7 +40,38 @@ class Window:
             program.loop_action()
             self.draw()
 
-            if program.event_action(pygame.event.get(), pygame.mouse.get_pos()) == pygame.WINDOWCLOSE:
+            events = pygame.event.get()
+            mouse_pos = pygame.mouse.get_pos()
+
+            for event in events:
+                if event.type == pygame.WINDOWCLOSE:
+                    self.is_running = False
+
+                elif event.type == pygame.MOUSEWHEEL:
+                    for layer in self.all_layers:
+                        if isinstance(layer, ScrollingLayer):
+                            if layer.mouse_check(mouse_pos):
+                                layer.scroll(event.x, event.y)
+
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        for layer in reversed(self.all_layers):
+                            if layer.mouse_check(mouse_pos):
+                                for gui_object in reversed(layer.gui_objects):
+                                    if isinstance(gui_object, GUIUtils.Button):
+                                        if gui_object.mouse_check(mouse_pos):
+                                            gui_object.is_clicked = True
+                                            program.button_action(gui_object.button_id)
+                                            break
+
+                elif event.type == pygame.MOUSEBUTTONUP:
+                    if event.button == 1:
+                        for layer in self.all_layers:
+                            for gui_object in layer.gui_objects:
+                                if isinstance(gui_object, GUIUtils.Button):
+                                    gui_object.is_clicked = False
+
+            if program.event_action(events, mouse_pos) == pygame.WINDOWCLOSE:
                 self.is_running = False
 
             pygame.display.flip()
