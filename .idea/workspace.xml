@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="basically got the rendering engine working">
-      <change afterPath="$PROJECT_DIR$/LogicElements.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/makieta.py" afterDir="false" />
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="preparations for the logic system to be put in place">
+      <change afterPath="$PROJECT_DIR$/assets/and.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/buffer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/nand.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/nor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/not.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/or.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/xnor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/xor.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIUtils.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIUtils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LogicElements.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicElements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PCB.py" beforeDir="false" afterPath="$PROJECT_DIR$/PCB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +129,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707443476094</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="preparations for the logic system to be put in place">
+      <option name="closed" value="true" />
+      <created>1707447967390</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1707447967390</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,6 +156,7 @@
     <MESSAGE value="added colours, some fixes" />
     <MESSAGE value="gitnore" />
     <MESSAGE value="basically got the rendering engine working" />
-    <option name="LAST_COMMIT_MESSAGE" value="basically got the rendering engine working" />
+    <MESSAGE value="preparations for the logic system to be put in place" />
+    <option name="LAST_COMMIT_MESSAGE" value="preparations for the logic system to be put in place" />
   </component>
 </project>

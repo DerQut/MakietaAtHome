@@ -6,6 +6,8 @@ import assets
 
 class Button(GUIObjects.Rect):
 
+    __free_id = 0
+
     def __init__(self, layer, size, position, button_id, fill_colour=assets.MacColoursDark.blue, is_visible=True):
         super().__init__(layer, size, position, fill_colour, width=0, is_visible=is_visible)
 
@@ -19,6 +21,11 @@ class Button(GUIObjects.Rect):
                 colour = (colour[0]*0.8, colour[1]*0.8, colour[2]*0.8)
 
             pygame.draw.rect(self.layer.surface, colour, self.rect, self.width)
+
+    @classmethod
+    def get_id(cls):
+        cls.__free_id = cls.__free_id + 1
+        return cls.__free_id - 1
 
 
 class LabelledButton(Button):
