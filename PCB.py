@@ -49,7 +49,7 @@ class Daughterboard(GUIDisplay.Layer):
 
         i = 0
         while i < self.motherboard.out_count:
-            new = Component(self, (1, 1), (1, size[1]-2-i), assets.MacColours.yellow, self.motherboard.outs[i])
+            new = Component(self, (1, 1), (1, size[1]-2-i), assets.MacColours.yellow, self.motherboard.outs[self.motherboard.out_count-i-1])
             i = i + 1
 
         self.motherboard.daughterboards.append(self)

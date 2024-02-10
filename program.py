@@ -35,6 +35,8 @@ buffer1.logic_element.connect(and1.logic_element, 0)
 buffer2.logic_element.connect(or1.logic_element, 1)
 buffer2.logic_element.connect(and1.logic_element, 1)
 
+and1.logic_element.connect(main_board.outs[0], 0)
+
 
 def button_action(button_id):
     for daughterboard in main_board.daughterboards:
@@ -59,5 +61,5 @@ def event_action(events, mouse_pos):
                     if daughterboard.is_visible:
                         for component in reversed(daughterboard.components):
                             if component.mouse_check(mouse_pos):
-                                if not(isinstance(component.logic_element, LogicElements.Pin) and component.logic_element.is_built_in):
+                                if not (isinstance(component.logic_element, LogicElements.Pin) and component.logic_element.is_built_in):
                                     component.delete()
