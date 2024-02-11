@@ -68,19 +68,34 @@ class Component(GUIUtils.Button):
 
         self.logic_element = logic_element
 
+        self.logic_element.master = self
+
+        self.on_colour = fill_colour
+        self.off_colour = (self.on_colour[0] * 0.7, self.on_colour[1] * 0.7, self.on_colour[2] * 0.7)
+
+        self.fill_colour = self.on_colour
+
         self.sprite_file = self.logic_element.textures[self.logic_element.is_inverted]
 
         self.daughterboard = daughterboard
         self.daughterboard.components.append(self)
 
+        self.inlets = []
+        self.outlets = []
+
         pixel_size = 0.85*min(self.size[0], self.size[1])
         self.texture = pygame.transform.scale(self.sprite_file, (pixel_size, pixel_size))
 
+        if not (isinstance(self.logic_element, LogicElements.Pin) and not self.logic_element.has_input):
+            i = self.size[1]/(self.logic_element.max_inputs+1)
+            while len(self.inlets) < self.logic_element.max_inputs:
+                new = Inlet(self, (self.position[0]-0.25*self.daughterboard.motherboard.slot_resolution, self.position[1]+(len(self.inlets)+1)*i-0.125*self.daughterboard.motherboard.slot_resolution), len(self.inlets), (0.25*self.daughterboard.motherboard.slot_resolution, 0.25*self.daughterboard.motherboard.slot_resolution))
+
     def draw(self):
-        colour = self.fill_colour
+        self.fill_colour = self.on_colour
         if not self.logic_element.external_state:
-            colour = (colour[0] * 0.7, colour[1] * 0.7, colour[2] * 0.7)
-        pygame.draw.rect(self.daughterboard.surface, colour, self.rect)
+            self.fill_colour = self.off_colour
+        pygame.draw.rect(self.daughterboard.surface, self.fill_colour, self.rect)
 
         self.layer.surface.blit(self.texture, (self.position[0]+0.5*(self.size[0]-self.texture.get_width()), self.position[1]+0.5*(self.size[1]-self.texture.get_height())))
 
@@ -88,3 +103,19 @@ class Component(GUIUtils.Button):
         self.logic_element.delete()
         self.daughterboard.components.remove(self)
         self.daughterboard.gui_objects.remove(self)
+
+
+class Inlet(GUIUtils.Button):
+
+    def __init__(self, component, position, inlet_id, size=(16, 16)):
+        super().__init__(component.daughterboard, size, position, GUIUtils.Button.get_id(), fill_colour=component.fill_colour, is_visible=True)
+
+        self.component = component
+        self.daughterboard = component.daughterboard
+        self.inlet_id = inlet_id
+
+        self.component.inlets.append(self)
+
+
+class Outlet(GUIUtils.Button):
+    ...

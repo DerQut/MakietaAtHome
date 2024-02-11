@@ -52,6 +52,25 @@ def loop_action():
     LogicElements.Gate.in_tick()
     LogicElements.Gate.out_tick()
 
+    for daughterboard in main_board.daughterboards:
+        if daughterboard.is_visible:
+
+            for component in daughterboard.components:
+                if not (isinstance(component.logic_element, LogicElements.Pin) and not component.logic_element.has_input):
+                    i = 0
+                    while i < component.logic_element.max_inputs:
+                        if component.logic_element.inputs[i] is not None:
+
+                            component.inlets[i].fill_colour = component.logic_element.inputs[i].master.fill_colour
+
+                        else:
+
+                            component.inlets[i].fill_colour = component.off_colour
+
+                        i = i + 1
+
+            break
+
 
 def event_action(events, mouse_pos):
     for event in events:

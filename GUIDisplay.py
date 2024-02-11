@@ -37,8 +37,8 @@ class Window:
 
         while self.is_running:
 
-            program.loop_action()
             self.draw()
+            program.loop_action()
 
             events = pygame.event.get()
             mouse_pos = pygame.mouse.get_pos()
