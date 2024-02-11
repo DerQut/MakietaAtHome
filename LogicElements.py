@@ -127,3 +127,7 @@ class Pin(Buffer):
     def connect(self, other, port):
         if self.has_output:
             super().connect(other, port)
+    
+    def calculate_output(self):
+        if self.has_input:
+            super().calculate_output()

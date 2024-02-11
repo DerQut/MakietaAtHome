@@ -37,6 +37,12 @@ class Motherboard:
 
         self.daughterboards = []
 
+    def update_pin_colour(self, logic_element: LogicElements.Pin, colour):
+        for daughterboard in self.daughterboards:
+            for component in daughterboard.components:
+                if component.logic_element == logic_element:
+                    component.change_colour(colour)
+
 
 class Daughterboard(GUIDisplay.Layer):
 
@@ -159,7 +165,10 @@ class Component(GUIUtils.Button):
     def change_parameter(self, parameter):
 
         if parameter == COLOUR:
-            self.change_colour(parser.get_colour(self.on_colour))
+            new_colour = parser.get_colour(self.on_colour)
+            self.change_colour(new_colour)
+            if isinstance(self.logic_element, LogicElements.Pin) and self.logic_element.is_built_in:
+                self.daughterboard.motherboard.update_pin_colour(self.logic_element, new_colour)
 
         elif parameter == INVERSION:
             self.logic_element.is_inverted = not self.logic_element.is_inverted
