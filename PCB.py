@@ -104,6 +104,9 @@ class Component(GUIUtils.Button):
         self.daughterboard.components.remove(self)
         self.daughterboard.gui_objects.remove(self)
 
+        for inlet in self.inlets:
+            self.daughterboard.gui_objects.remove(inlet)
+
 
 class Inlet(GUIUtils.Button):
 
