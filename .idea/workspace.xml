@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="preparations for the logic system to be put in place">
-      <change afterPath="$PROJECT_DIR$/assets/and.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/buffer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/nand.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/nor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/not.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/or.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/xnor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/xor.png" afterDir="false" />
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="fixed inlets not disappearing when deleting a component">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIUtils.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIUtils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LogicElements.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicElements.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PCB.py" beforeDir="false" afterPath="$PROJECT_DIR$/PCB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
@@ -137,7 +127,39 @@
       <option name="project" value="LOCAL" />
       <updated>1707447967390</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="indescribable progress">
+      <option name="closed" value="true" />
+      <created>1707607406614</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1707607406614</updated>
+    </task>
+    <task id="LOCAL-00007" summary="cosmetic changes">
+      <option name="closed" value="true" />
+      <created>1707608172333</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1707608172333</updated>
+    </task>
+    <task id="LOCAL-00008" summary="another huge advancement">
+      <option name="closed" value="true" />
+      <created>1707611640070</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1707611640070</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fixed inlets not disappearing when deleting a component">
+      <option name="closed" value="true" />
+      <created>1707612319449</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1707612319449</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -157,6 +179,10 @@
     <MESSAGE value="gitnore" />
     <MESSAGE value="basically got the rendering engine working" />
     <MESSAGE value="preparations for the logic system to be put in place" />
-    <option name="LAST_COMMIT_MESSAGE" value="preparations for the logic system to be put in place" />
+    <MESSAGE value="indescribable progress" />
+    <MESSAGE value="cosmetic changes" />
+    <MESSAGE value="another huge advancement" />
+    <MESSAGE value="fixed inlets not disappearing when deleting a component" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed inlets not disappearing when deleting a component" />
   </component>
 </project>

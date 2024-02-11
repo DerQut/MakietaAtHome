@@ -91,13 +91,29 @@ class Component(GUIUtils.Button):
             while len(self.inlets) < self.logic_element.max_inputs:
                 new = Inlet(self, (self.position[0]-0.25*self.daughterboard.motherboard.slot_resolution, self.position[1]+(len(self.inlets)+1)*i-0.125*self.daughterboard.motherboard.slot_resolution), len(self.inlets), (0.25*self.daughterboard.motherboard.slot_resolution, 0.25*self.daughterboard.motherboard.slot_resolution))
 
+        if not (isinstance(self.logic_element, LogicElements.Pin) and not self.logic_element.has_output):
+            new = Outlet(self, (self.position[0]+self.size[0], self.position[1]+0.5*(self.size[1]-0.5*self.daughterboard.motherboard.slot_resolution)), 1, (self.daughterboard.motherboard.slot_resolution*0.25, self.daughterboard.motherboard.slot_resolution*0.5))
+
     def draw(self):
         self.fill_colour = self.on_colour
         if not self.logic_element.external_state:
             self.fill_colour = self.off_colour
         pygame.draw.rect(self.daughterboard.surface, self.fill_colour, self.rect)
 
-        self.layer.surface.blit(self.texture, (self.position[0]+0.5*(self.size[0]-self.texture.get_width()), self.position[1]+0.5*(self.size[1]-self.texture.get_height())))
+        border_thickness = 0.5*(self.size[0]-self.texture.get_width())
+
+        missing_height = 0.5*(self.size[1] - self.texture.get_height())
+        missing_width = self.texture.get_width()
+
+        temp_rect = pygame.rect.Rect(self.position[0]+border_thickness, self.position[1]+border_thickness, missing_width, missing_height-border_thickness)
+
+        pygame.draw.rect(self.daughterboard.surface, assets.Colours.black, temp_rect)
+
+        temp_rect = temp_rect.move(0, temp_rect.height + self.texture.get_height())
+
+        pygame.draw.rect(self.daughterboard.surface, assets.Colours.black, temp_rect)
+
+        self.layer.surface.blit(self.texture, (self.position[0]+border_thickness, self.position[1]+0.5*(self.size[1]-self.texture.get_height())))
 
     def delete(self):
         self.logic_element.delete()
@@ -106,6 +122,19 @@ class Component(GUIUtils.Button):
 
         for inlet in self.inlets:
             self.daughterboard.gui_objects.remove(inlet)
+
+        for outlet in self.outlets:
+            self.daughterboard.gui_objects.remove(outlet)
+
+    def update_io_colours(self):
+
+        for inlet in self.inlets:
+            if self.logic_element.inputs[inlet.inlet_id] is None:
+                inlet.fill_colour = self.off_colour
+            else:
+                inlet.fill_colour = self.logic_element.inputs[inlet.inlet_id].master.fill_colour
+        for outlet in self.outlets:
+            outlet.fill_colour = self.fill_colour
 
 
 class Inlet(GUIUtils.Button):
@@ -121,4 +150,12 @@ class Inlet(GUIUtils.Button):
 
 
 class Outlet(GUIUtils.Button):
-    ...
+
+    def __init__(self, component, position, outlet_id, size=(32, 32)):
+        super().__init__(component.daughterboard, size, position, GUIUtils.Button.get_id(), fill_colour=component.fill_colour, is_visible=True)
+
+        self.component = component
+        self.daughterboard = component.daughterboard
+        self.outlet_id = outlet_id
+
+        self.component.outlets.append(self)

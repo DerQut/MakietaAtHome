@@ -23,20 +23,13 @@ test_button2 = GUIUtils.RoundedLabelledButton(side_bar, (128, 64), (128, 720), G
 
 main_board = PCB.Motherboard(8, 8, 13, 32)
 first_sub = PCB.Daughterboard(main_window, main_board, (32, 20), (688, 128))
-buffer1 = PCB.Component(first_sub, (2, 2), (3, 3), assets.MacColours.yellow, LogicElements.Buffer())
-buffer2 = PCB.Component(first_sub, (2, 2), (3, 6), assets.MacColours.yellow, LogicElements.Buffer())
+buffer1 = PCB.Component(first_sub, (2, 2), (3, 5), assets.MacColours.yellow, LogicElements.Buffer(False))
+buffer2 = PCB.Component(first_sub, (2, 2), (3, 10), assets.MacColours.yellow, LogicElements.Buffer(False))
 
-or1 = PCB.Component(first_sub, (2, 2), (8, 3), assets.MacColours.yellow, LogicElements.ORGate(2))
-and1 = PCB.Component(first_sub, (2, 2), (8, 6), assets.MacColours.yellow, LogicElements.ANDGate(2, False))
+nand1 = PCB.Component(first_sub, (2, 4), (7, 5), assets.MacColours.yellow, LogicElements.ANDGate(4, True))
+nand2 = PCB.Component(first_sub, (2, 4), (7, 10), assets.MacColours.yellow, LogicElements.ANDGate(4, True))
 
-buffer1.logic_element.connect(or1.logic_element, 0)
-buffer1.logic_element.connect(and1.logic_element, 0)
-
-buffer2.logic_element.connect(or1.logic_element, 1)
-buffer2.logic_element.connect(and1.logic_element, 1)
-
-and1.logic_element.connect(main_board.outs[0], 0)
-
+buffer1.logic_element.connect(nand1.logic_element, 0)
 
 def button_action(button_id):
     for daughterboard in main_board.daughterboards:
@@ -45,7 +38,13 @@ def button_action(button_id):
                 if component.button_id == button_id:
                     if not (isinstance(component.logic_element, LogicElements.Pin) and component.logic_element.is_built_in):
                         component.logic_element.is_inverted = not component.logic_element.is_inverted
+
+                for inlet in component.inlets:
+                    if inlet.button_id == button_id:
+                        component.logic_element.disconnect(inlet.inlet_id)
+
             daughterboard.update_textures()
+            break
 
 
 def loop_action():
@@ -56,19 +55,12 @@ def loop_action():
         if daughterboard.is_visible:
 
             for component in daughterboard.components:
+                component.update_io_colours()
                 if not (isinstance(component.logic_element, LogicElements.Pin) and not component.logic_element.has_input):
-                    i = 0
-                    while i < component.logic_element.max_inputs:
-                        if component.logic_element.inputs[i] is not None:
-
-                            component.inlets[i].fill_colour = component.logic_element.inputs[i].master.fill_colour
-
-                        else:
-
-                            component.inlets[i].fill_colour = component.off_colour
-
-                        i = i + 1
-
+                    for inlet in component.inlets:
+                        if component.logic_element.inputs[inlet.inlet_id] is not None:
+                            #pygame.draw.line(main_window.screen, Colours.black, (inlet.position[0]+component.daughterboard.position[0], inlet.position[1]+component.daughterboard.position[1]), (component.logic_element.inputs[inlet.inlet_id].master.outlets[0].position[0]+component.daughterboard.position[0], component.logic_element.inputs[inlet.inlet_id].master.outlets[0].position[1]+component.daughterboard.position[1]), width=5)
+                            pygame.draw.line(main_window.screen, component.logic_element.inputs[inlet.inlet_id].master.fill_colour, (inlet.position[0]+daughterboard.position[0]+0.5*inlet.size[0], inlet.position[1]+daughterboard.position[1]+0.5*inlet.size[1]), (component.logic_element.inputs[inlet.inlet_id].master.outlets[0].position[0] + daughterboard.position[0] + 0.5*component.logic_element.inputs[inlet.inlet_id].master.outlets[0].size[0], component.logic_element.inputs[inlet.inlet_id].master.outlets[0].position[1] + daughterboard.position[1] + 0.5*component.logic_element.inputs[inlet.inlet_id].master.outlets[0].size[1]), width=3)
             break
 
 
