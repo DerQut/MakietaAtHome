@@ -5,6 +5,11 @@ import GUIObjects
 import GUIUtils
 import LogicElements
 import assets
+import parser
+
+SIZE = 0
+COLOUR = 1
+INVERSION = 3
 
 
 class Motherboard:
@@ -52,6 +57,11 @@ class Daughterboard(GUIDisplay.Layer):
             new = Component(self, (1, 1), (1, size[1]-2-i), assets.MacColours.yellow, self.motherboard.outs[self.motherboard.out_count-i-1])
             i = i + 1
 
+        i = 0
+        while i < self.motherboard.com_count:
+            new = Component(self, (1, 1), (size[0]-2, 0.5*(size[1]-self.motherboard.com_count)+i), assets.MacColours.yellow, self.motherboard.coms[i])
+            i = i + 1
+
         self.motherboard.daughterboards.append(self)
 
     def update_textures(self):
@@ -95,6 +105,9 @@ class Component(GUIUtils.Button):
             new = Outlet(self, (self.position[0]+self.size[0], self.position[1]+0.5*(self.size[1]-0.5*self.daughterboard.motherboard.slot_resolution)), 1, (self.daughterboard.motherboard.slot_resolution*0.25, self.daughterboard.motherboard.slot_resolution*0.5))
 
     def draw(self):
+        if not self.is_visible:
+            return 1
+
         self.fill_colour = self.on_colour
         if not self.logic_element.external_state:
             self.fill_colour = self.off_colour
@@ -135,6 +148,24 @@ class Component(GUIUtils.Button):
                 inlet.fill_colour = self.logic_element.inputs[inlet.inlet_id].master.fill_colour
         for outlet in self.outlets:
             outlet.fill_colour = self.fill_colour
+
+    def change_colour(self, new_colour):
+
+        self.on_colour = new_colour
+        self.off_colour = (self.on_colour[0] * 0.7, self.on_colour[1] * 0.7, self.on_colour[2] * 0.7)
+
+        self.update_io_colours()
+
+    def change_parameter(self, parameter):
+
+        if parameter == COLOUR:
+            self.change_colour(parser.get_colour(self.on_colour))
+
+        elif parameter == INVERSION:
+            self.logic_element.is_inverted = not self.logic_element.is_inverted
+
+        elif parameter == SIZE:
+            ...
 
 
 class Inlet(GUIUtils.Button):

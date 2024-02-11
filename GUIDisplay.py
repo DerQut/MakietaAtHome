@@ -38,10 +38,11 @@ class Window:
         while self.is_running:
 
             self.draw()
-            program.loop_action()
 
             events = pygame.event.get()
             mouse_pos = pygame.mouse.get_pos()
+
+            program.loop_action(mouse_pos)
 
             for event in events:
                 if event.type == pygame.WINDOWCLOSE:
