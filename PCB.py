@@ -73,8 +73,11 @@ class Daughterboard(GUIDisplay.Sublayer):
     def update_textures(self):
         for component in self.components:
             component.sprite_file = component.logic_element.textures[component.logic_element.is_inverted]
-            pixel_size = 0.85 * min(component.size[0], component.size[1])
-            component.texture = pygame.transform.scale(component.sprite_file, (pixel_size, pixel_size))
+            pixel_size = (0.85 * component.size[0], 0.85 * component.size[1])
+            if not isinstance(component.logic_element, LogicElements.FlipFlop):
+                component.texture = pygame.transform.scale(component.sprite_file, (min(pixel_size[0], pixel_size[1]), min(pixel_size[0], pixel_size[1])))
+            else:
+                component.texture = pygame.transform.scale(component.sprite_file, (pixel_size[0], pixel_size[1]))
 
 
 class Component(GUIUtils.Button):
@@ -99,8 +102,11 @@ class Component(GUIUtils.Button):
         self.inlets = []
         self.outlets = []
 
-        pixel_size = 0.85*min(self.size[0], self.size[1])
-        self.texture = pygame.transform.scale(self.sprite_file, (pixel_size, pixel_size))
+        pixel_size = (0.85*self.size[0], 0.85*self.size[1])
+        if not isinstance(self.logic_element, LogicElements.FlipFlop):
+            self.texture = pygame.transform.scale(self.sprite_file, (min(pixel_size[0], pixel_size[1]), min(pixel_size[0], pixel_size[1])))
+        else:
+            self.texture = pygame.transform.scale(self.sprite_file, (pixel_size[0], pixel_size[1]))
 
         if not (isinstance(self.logic_element, LogicElements.Pin) and not self.logic_element.has_input):
             i = self.size[1]/(self.logic_element.max_inputs+1)
@@ -173,6 +179,8 @@ class Component(GUIUtils.Button):
 
         elif parameter == INVERSION:
             self.logic_element.is_inverted = not self.logic_element.is_inverted
+            if isinstance(self.logic_element, LogicElements.FlipFlop):
+                self.logic_element.is_rising_edge = not self.logic_element.is_rising_edge
 
         elif parameter == SIZE:
             ...
@@ -197,6 +205,10 @@ class Inlet(GUIUtils.Button):
             point2 = (self.position[0]+2*self.size[0]+0.66*self.daughterboard.motherboard.slot_resolution, self.position[1]+0.5*self.size[1])
             point3 = (self.position[0]+2*self.size[0], self.position[1]+0.5*self.daughterboard.motherboard.slot_resolution+self.size[1])
             pygame.draw.polygon(self.daughterboard.surface, self.fill_colour, (point1, point2, point3), width=5)
+
+            if not self.component.logic_element.is_rising_edge:
+
+                pygame.draw.circle(self.component.daughterboard.surface, self.fill_colour, (self.position[0]+0.5*self.size[0]-0.5*self.daughterboard.motherboard.slot_resolution+10, self.position[1]+0.5*self.size[1]), 0.4*self.daughterboard.motherboard.slot_resolution, width=5)
 
 
 class Outlet(GUIUtils.Button):

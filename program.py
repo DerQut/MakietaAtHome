@@ -16,7 +16,7 @@ pygame.font.init()
 
 main_window = GUIDisplay.Window(fps_cap=0)
 
-bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=45)
+bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=60)
 circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
 circuit_board.can_move = False
 
@@ -141,10 +141,10 @@ def create(id):
         get_d_db(True)
 
 
-#get_not_db(True)
-#get_nand_db(True)
+get_not_db(True)
+get_nand_db(True)
 get_jk_db(True)
-get_d_db(True)
+#get_d_db(True)
 
 
 def button_action(button_id):

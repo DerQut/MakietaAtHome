@@ -163,6 +163,8 @@ class DFlipFlop(FlipFlop):
     def __init__(self, is_rising_edge=True):
         super().__init__(2, is_rising_edge)
 
+        self.textures = [pygame.image.load("assets/D.png"), pygame.image.load("assets/D.png")]
+
     def calculate_output(self):
         if self.check_clock():
 
@@ -178,6 +180,8 @@ class JKFlipFlop(FlipFlop):
 
     def __init__(self, is_rising_edge=True):
         super().__init__(3, is_rising_edge)
+
+        self.textures = [pygame.image.load("assets/JK.png"), pygame.image.load("assets/JK.png")]
 
     def calculate_output(self):
         if self.check_clock():
