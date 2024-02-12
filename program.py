@@ -33,7 +33,11 @@ current_tool = PCB.COLOUR
 def get_not_db(is_visible=False):
 
     x_pos = 0.5*(bg_layer.size[0] - 24*main_board.slot_resolution) + bg_layer.position[0]
-    y_pos = 0.33*(bg_layer.size[1] - 21*main_board.slot_resolution) + len(main_board.daughterboards)*(22*main_board.slot_resolution)
+    if not len(main_board.daughterboards):
+        y_pos = 0.33 * (bg_layer.size[1] - 21 * main_board.slot_resolution)
+    else:
+        y_pos = main_board.daughterboards[len(main_board.daughterboards) - 1].position[
+                    1] + 22 * main_board.slot_resolution
 
     padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
     padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 21*main_board.slot_resolution), is_visible=False)
@@ -56,7 +60,10 @@ def get_not_db(is_visible=False):
 def get_nand_db(is_visible=False):
 
     x_pos = 0.5 * (bg_layer.size[0] - 24 * main_board.slot_resolution) + bg_layer.position[0]
-    y_pos = 0.33 * (bg_layer.size[1] - 21 * main_board.slot_resolution) + len(main_board.daughterboards)*(22*main_board.slot_resolution)
+    if not len(main_board.daughterboards):
+        y_pos = 0.33 * (bg_layer.size[1] - 21 * main_board.slot_resolution)
+    else:
+        y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + 22*main_board.slot_resolution
 
     padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
     padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 21*main_board.slot_resolution), is_visible=False)
@@ -70,6 +77,33 @@ def get_nand_db(is_visible=False):
         new = PCB.Component(daughterboard, (2, 4), (16, 1 + i * 4), MacColours.yellow, LogicElements.ANDGate(4, True))
         new = PCB.Component(daughterboard, (2, 4), (16, 12 + i * 4), MacColours.yellow, LogicElements.ANDGate(4, True))
         i = i + 1
+
+
+def get_jk_db(is_visible=False):
+
+    x_pos = 0.5 * (bg_layer.size[0] - 24 * main_board.slot_resolution) + bg_layer.position[0]
+    if not len(main_board.daughterboards):
+        y_pos = 0.33 * (bg_layer.size[1] - 21 * main_board.slot_resolution)
+    else:
+        y_pos = main_board.daughterboards[len(main_board.daughterboards) - 1].position[
+                    1] + 22 * main_board.slot_resolution
+
+    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution),
+                              (0, y_pos - 2 * main_board.slot_resolution), is_visible=False)
+    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution),
+                              (0, y_pos + 21 * main_board.slot_resolution), is_visible=False)
+
+    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
+
+
+def create(id):
+
+    if id == 1:
+        get_not_db(True)
+    elif id == 2:
+        get_nand_db(True)
+    elif id == 3:
+        get_jk_db(True)
 
 
 get_not_db(True)
@@ -86,7 +120,8 @@ def button_action(button_id):
                 if element.button_id == button_id:
 
                     if element.button_id == 0:
-                        ...
+
+                        create(parser.get_value("Nowa makieta", "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- NAND + JK\n4- NAND + D", 0))
 
     for daughterboard in main_board.daughterboards:
         if daughterboard.is_visible:
