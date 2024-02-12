@@ -57,13 +57,14 @@ class Window:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         for layer in reversed(self.all_layers):
-                            if layer.mouse_check(mouse_pos):
+                            if layer.mouse_check(mouse_pos) and layer.is_visible:
                                 for gui_object in reversed(layer.gui_objects):
                                     if isinstance(gui_object, GUIUtils.Button):
                                         if gui_object.mouse_check(mouse_pos):
                                             gui_object.is_clicked = True
                                             program.button_action(gui_object.button_id)
                                             break
+                                break
 
                 elif event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:

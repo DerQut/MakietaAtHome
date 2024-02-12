@@ -9,6 +9,7 @@ class Gate:
         self.textures = []
         self.max_inputs = max_inputs
         self.inputs = []
+        self.masters = []
         while len(self.inputs) < self.max_inputs:
             self.inputs.append(None)
 

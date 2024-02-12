@@ -65,8 +65,8 @@ def get_nand_db(is_visible=False):
         i = i + 1
 
 
-get_nand_db(True)
-get_not_db()
+get_nand_db(False)
+get_not_db(True)
 
 
 def button_action(button_id):
@@ -79,10 +79,10 @@ def button_action(button_id):
 
                 if component.button_id == button_id and not isinstance(component.logic_element, LogicElements.Pin):
                     component.change_parameter(PCB.INVERSION)
+                    print(component.logic_element.inputs)
 
                 for inlet in component.inlets:
                     if inlet.button_id == button_id:
-                        print(inlet.inlet_id)
                         component.logic_element.disconnect(inlet.inlet_id)
                         component.logic_element.inputs[inlet.inlet_id] = selected_output
                         selected_output = None
@@ -107,13 +107,15 @@ def loop_action(mouse_pos):
                 component.update_io_colours()
 
                 if component.logic_element == selected_output:
-                    pygame.draw.line(main_window.screen, selected_output.master.fill_colour, mouse_pos, (selected_output.master.outlets[0].position[0] + daughterboard.position[0] + 0.5*selected_output.master.outlets[0].size[0], selected_output.master.outlets[0].position[1] + daughterboard.position[1] + 0.5*selected_output.master.outlets[0].size[1]), 3)
+                    for master in selected_output.masters:
+                        if master.daughterboard.is_visible:
+                            pygame.draw.line(main_window.screen, master.fill_colour, mouse_pos, (master.outlets[0].position[0] + daughterboard.position[0] + 0.5*master.outlets[0].size[0], master.outlets[0].position[1] + daughterboard.position[1] + 0.5*master.outlets[0].size[1]), 3)
 
                 for inlet in component.inlets:
                     if component.logic_element.inputs[inlet.inlet_id] is not None:
-                        if component.logic_element.inputs[inlet.inlet_id].master.daughterboard.is_visible:
-                            pygame.draw.line(main_window.screen, component.logic_element.inputs[inlet.inlet_id].master.fill_colour, (inlet.position[0]+daughterboard.position[0]+0.5*inlet.size[0], inlet.position[1]+daughterboard.position[1]+0.5*inlet.size[1]), (component.logic_element.inputs[inlet.inlet_id].master.outlets[0].position[0] + daughterboard.position[0] + 0.5*component.logic_element.inputs[inlet.inlet_id].master.outlets[0].size[0], component.logic_element.inputs[inlet.inlet_id].master.outlets[0].position[1] + daughterboard.position[1] + 0.5*component.logic_element.inputs[inlet.inlet_id].master.outlets[0].size[1]), width=3)
-            break
+                        for master in component.logic_element.inputs[inlet.inlet_id].masters:
+                            if master.daughterboard == component.daughterboard and master.daughterboard.is_visible:
+                                pygame.draw.line(main_window.screen, master.fill_colour, (inlet.position[0]+daughterboard.position[0]+0.5*inlet.size[0], inlet.position[1]+daughterboard.position[1]+0.5*inlet.size[1]), (master.outlets[0].position[0] + daughterboard.position[0] + 0.5*master.outlets[0].size[0], master.outlets[0].position[1] + daughterboard.position[1] + 0.5*master.outlets[0].size[1]), width=3)
 
 
 def event_action(events, mouse_pos):
@@ -123,6 +125,9 @@ def event_action(events, mouse_pos):
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 3:
+                if selected_output is not None:
+                    selected_output = None
+                    return -1
                 for daughterboard in reversed(main_board.daughterboards):
                     if daughterboard.is_visible:
                         for component in reversed(daughterboard.components):

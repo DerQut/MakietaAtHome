@@ -84,7 +84,7 @@ class Component(GUIUtils.Button):
 
         self.logic_element = logic_element
 
-        self.logic_element.master = self
+        self.logic_element.masters.append(self)
 
         self.on_colour = fill_colour
         self.off_colour = (self.on_colour[0] * 0.7, self.on_colour[1] * 0.7, self.on_colour[2] * 0.7)
@@ -151,7 +151,9 @@ class Component(GUIUtils.Button):
             if self.logic_element.inputs[inlet.inlet_id] is None:
                 inlet.fill_colour = self.off_colour
             else:
-                inlet.fill_colour = self.logic_element.inputs[inlet.inlet_id].master.fill_colour
+                for master in self.logic_element.inputs[inlet.inlet_id].masters:
+                    if master.daughterboard.is_visible:
+                        inlet.fill_colour = master.fill_colour
         for outlet in self.outlets:
             outlet.fill_colour = self.fill_colour
 
@@ -195,7 +197,6 @@ class Outlet(GUIUtils.Button):
         super().__init__(component.daughterboard, size, position, GUIUtils.Button.get_id(), fill_colour=component.fill_colour, is_visible=True)
 
         self.component = component
-        self.daughterboard = component.daughterboard
         self.outlet_id = outlet_id
 
         self.component.outlets.append(self)
