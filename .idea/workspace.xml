@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="added COM ports">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/popMakieta.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/popMakieta.iml" afterDir="false" />
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="fixed a bug where pin connected cables only rendered on one daughterboard">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIDisplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIDisplay.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LogicElements.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicElements.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PCB.py" beforeDir="false" afterPath="$PROJECT_DIR$/PCB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707693981919</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="fixed a bug where pin connected cables only rendered on one daughterboard">
+      <option name="closed" value="true" />
+      <created>1707698969409</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1707698969409</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -212,6 +215,7 @@
     <MESSAGE value="fixed inlets not disappearing when deleting a component" />
     <MESSAGE value="added a lot" />
     <MESSAGE value="added COM ports" />
-    <option name="LAST_COMMIT_MESSAGE" value="added COM ports" />
+    <MESSAGE value="fixed a bug where pin connected cables only rendered on one daughterboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed a bug where pin connected cables only rendered on one daughterboard" />
   </component>
 </project>

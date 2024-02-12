@@ -152,8 +152,7 @@ class Component(GUIUtils.Button):
                 inlet.fill_colour = self.off_colour
             else:
                 for master in self.logic_element.inputs[inlet.inlet_id].masters:
-                    if master.daughterboard.is_visible:
-                        inlet.fill_colour = master.fill_colour
+                    inlet.fill_colour = master.fill_colour
         for outlet in self.outlets:
             outlet.fill_colour = self.fill_colour
 
