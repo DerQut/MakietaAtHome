@@ -98,6 +98,8 @@ class Layer:
 
         self.window.all_layers.append(self)
 
+        self.sublayers = []
+
     def draw(self):
 
         if self.is_visible:
@@ -105,6 +107,9 @@ class Layer:
 
             for gui_object in self.gui_objects:
                 gui_object.draw()
+
+            for sublayer in self.sublayers:
+                sublayer.draw()
 
             self.window.screen.blit(self.surface, self.position)
 
@@ -163,3 +168,12 @@ class ScrollingLayer(Layer):
             for gui_object in self.gui_objects:
                 gui_object.move_by(-can_move_left)
 
+
+class Sublayer(Layer):
+
+    def __init__(self, master: Layer, size, position, bg_colour=assets.Colours.white, is_visible=True):
+        super().__init__(master.window, size, position, bg_colour, is_visible)
+
+        self.master = master
+        master.sublayers.append(self)
+        master.gui_objects.append(self)
