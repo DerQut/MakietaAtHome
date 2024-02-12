@@ -44,7 +44,7 @@ class Motherboard:
                     component.change_colour(colour)
 
 
-class Daughterboard(GUIDisplay.Layer):
+class Daughterboard(GUIDisplay.Sublayer):
 
     def __init__(self, window, motherboard, size, position, bg_colour=assets.MacColoursDark.green, is_visible=True):
         super().__init__(window, (size[0]*motherboard.slot_resolution, size[1]*motherboard.slot_resolution), position, bg_colour, is_visible)

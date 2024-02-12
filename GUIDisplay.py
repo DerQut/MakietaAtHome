@@ -140,6 +140,8 @@ class ScrollingLayer(Layer):
         can_move_right = 0
 
         for gui_object in self.gui_objects:
+            if not gui_object.can_move:
+                continue
             if gui_object.position[1] < 0:
                 can_move_down = min(abs(gui_object.position[1]), self.y_scroll_speed)
 
@@ -173,6 +175,8 @@ class Sublayer(Layer):
 
     def __init__(self, master: Layer, size, position, bg_colour=assets.Colours.white, is_visible=True):
         super().__init__(master.window, size, position, bg_colour, is_visible)
+
+        self.can_move = True
 
         self.master = master
         master.sublayers.append(self)

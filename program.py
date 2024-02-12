@@ -16,8 +16,9 @@ pygame.font.init()
 
 main_window = GUIDisplay.Window(fps_cap=0)
 
-bg_layer = GUIDisplay.Layer(main_window, (1920, 1080), (0, 0), Colours.black)
+bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=45)
 circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
+circuit_board.can_move = False
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
 test_button2 = GUIUtils.RoundedLabelledButton(side_bar, (128, 64), (128, 720), 0, 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Test")
@@ -31,10 +32,13 @@ current_tool = PCB.COLOUR
 
 def get_not_db(is_visible=False):
 
-    x_pos = 0.5*(main_window.resolution[0] - 24*main_board.slot_resolution + side_bar.size[0])
-    y_pos = 0.33*(main_window.resolution[1] - 21*main_board.slot_resolution) + len(main_board.daughterboards)*(22*main_board.slot_resolution)
+    x_pos = 0.5*(bg_layer.size[0] - 24*main_board.slot_resolution) + bg_layer.position[0]
+    y_pos = 0.33*(bg_layer.size[1] - 21*main_board.slot_resolution) + len(main_board.daughterboards)*(22*main_board.slot_resolution)
 
-    daughterboard = PCB.Daughterboard(main_window, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
+    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
+    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 21*main_board.slot_resolution), is_visible=False)
+
+    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
 
     i = 0
     while i < 3:
@@ -51,10 +55,13 @@ def get_not_db(is_visible=False):
 
 def get_nand_db(is_visible=False):
 
-    x_pos = 0.5 * (main_window.resolution[0] - 24 * main_board.slot_resolution + side_bar.size[0])
-    y_pos = 0.33 * (main_window.resolution[1] - 21 * main_board.slot_resolution) + len(main_board.daughterboards)*(22*main_board.slot_resolution)
+    x_pos = 0.5 * (bg_layer.size[0] - 24 * main_board.slot_resolution) + bg_layer.position[0]
+    y_pos = 0.33 * (bg_layer.size[1] - 21 * main_board.slot_resolution) + len(main_board.daughterboards)*(22*main_board.slot_resolution)
 
-    daughterboard = PCB.Daughterboard(main_window, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
+    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
+    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 21*main_board.slot_resolution), is_visible=False)
+
+    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
 
     i = 0
     while i < 2:
@@ -65,8 +72,8 @@ def get_nand_db(is_visible=False):
         i = i + 1
 
 
-get_nand_db(True)
 get_not_db(True)
+get_nand_db(True)
 
 
 def button_action(button_id):
@@ -90,16 +97,19 @@ def button_action(button_id):
 
                 for inlet in component.inlets:
                     if inlet.button_id == button_id:
-                        component.logic_element.disconnect(inlet.inlet_id)
-                        component.logic_element.inputs[inlet.inlet_id] = selected_output
-                        selected_output = None
+                        if isinstance(selected_output, LogicElements.Gate):
+                            for master in selected_output.masters:
+                                if master.daughterboard == component.daughterboard:
+                                    component.logic_element.inputs[inlet.inlet_id] = selected_output
+                                    selected_output = None
+                        else:
+                            component.logic_element.disconnect(inlet.inlet_id)
 
                 for outlet in component.outlets:
                     if outlet.button_id == button_id:
                         selected_output = component.logic_element
 
             daughterboard.update_textures()
-            break
 
 
 def loop_action(mouse_pos):
@@ -135,9 +145,9 @@ def event_action(events, mouse_pos):
                 if selected_output is not None:
                     selected_output = None
                     return -1
-                for daughterboard in reversed(main_board.daughterboards):
-                    if daughterboard.is_visible:
-                        for component in reversed(daughterboard.components):
+                for daughterboard in main_board.daughterboards:
+                    if daughterboard.is_visible and daughterboard.mouse_check(mouse_pos):
+                        for component in daughterboard.components:
                             if component.mouse_check(mouse_pos):
                                 component.change_parameter(current_tool)
                                 return 0

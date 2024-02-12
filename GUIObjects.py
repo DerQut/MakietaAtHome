@@ -23,6 +23,8 @@ class Rect:
 
         Rect.all_rects.append(self)
 
+        self.can_move = True
+
     def draw(self):
 
         if self.is_visible:
@@ -34,8 +36,9 @@ class Rect:
 
     def move_by(self, x=0, y=0):
 
-        self.position = (self.position[0]+x, self.position[1]+y)
-        self.update()
+        if self.can_move:
+            self.position = (self.position[0]+x, self.position[1]+y)
+            self.update()
 
     def mouse_check(self, mouse_pos):
         if self.layer.mouse_check(mouse_pos):
@@ -92,9 +95,16 @@ class Image:
         self.layer = layer
         self.is_visible = is_visible
 
+        self.can_move = True
+
+        self.size = (self.texture.get_width(), self.texture.get_height())
+
         self.layer.gui_objects.append(self)
 
     def draw(self):
-
         if self.is_visible:
             self.layer.surface.blit(self.texture, self.position)
+
+    def move_by(self, x=0, y=0):
+        if self.can_move:
+            self.position = (self.position[0]+x, self.position[1]+y)

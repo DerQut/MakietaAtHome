@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="fixed a bug where pin connected cables only rendered on one daughterboard">
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="added sublayers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIDisplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIDisplay.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIObjects.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIObjects.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PCB.py" beforeDir="false" afterPath="$PROJECT_DIR$/PCB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +192,39 @@
       <option name="project" value="LOCAL" />
       <updated>1707698969409</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fixed a visual bug where COM port inlet colours weren't displayed properly">
+      <option name="closed" value="true" />
+      <created>1707750985000</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1707750985000</updated>
+    </task>
+    <task id="LOCAL-00015" summary="removed redundant print() calls">
+      <option name="closed" value="true" />
+      <created>1707751220120</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1707751220120</updated>
+    </task>
+    <task id="LOCAL-00016" summary="small changes">
+      <option name="closed" value="true" />
+      <created>1707754744167</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1707754744167</updated>
+    </task>
+    <task id="LOCAL-00017" summary="added sublayers">
+      <option name="closed" value="true" />
+      <created>1707755333459</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1707755333459</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -216,6 +251,10 @@
     <MESSAGE value="added a lot" />
     <MESSAGE value="added COM ports" />
     <MESSAGE value="fixed a bug where pin connected cables only rendered on one daughterboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed a bug where pin connected cables only rendered on one daughterboard" />
+    <MESSAGE value="fixed a visual bug where COM port inlet colours weren't displayed properly" />
+    <MESSAGE value="removed redundant print() calls" />
+    <MESSAGE value="small changes" />
+    <MESSAGE value="added sublayers" />
+    <option name="LAST_COMMIT_MESSAGE" value="added sublayers" />
   </component>
 </project>
