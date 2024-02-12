@@ -6,7 +6,7 @@ import assets
 
 class Button(GUIObjects.Rect):
 
-    __free_id = 0
+    __free_id = 1024
 
     def __init__(self, layer, size, position, button_id, fill_colour=assets.MacColoursDark.blue, is_visible=True):
         super().__init__(layer, size, position, fill_colour, width=0, is_visible=is_visible)

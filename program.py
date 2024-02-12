@@ -20,9 +20,9 @@ bg_layer = GUIDisplay.Layer(main_window, (1920, 1080), (0, 0), Colours.black)
 circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
-test_button2 = GUIUtils.RoundedLabelledButton(side_bar, (128, 64), (128, 720), GUIUtils.Button.get_id(), 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Test")
+test_button2 = GUIUtils.RoundedLabelledButton(side_bar, (128, 64), (128, 720), 0, 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Test")
 
-main_board = PCB.Motherboard(8, 8, 13, 32)
+main_board = PCB.Motherboard(8, 8, 13, 40)
 
 
 selected_output = None
@@ -32,7 +32,7 @@ current_tool = PCB.COLOUR
 def get_not_db(is_visible=False):
 
     x_pos = 0.5*(main_window.resolution[0] - 24*main_board.slot_resolution + side_bar.size[0])
-    y_pos = 0.33*(main_window.resolution[1] - 21*main_board.slot_resolution)
+    y_pos = 0.33*(main_window.resolution[1] - 21*main_board.slot_resolution) + len(main_board.daughterboards)*(22*main_board.slot_resolution)
 
     daughterboard = PCB.Daughterboard(main_window, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
 
@@ -52,7 +52,7 @@ def get_not_db(is_visible=False):
 def get_nand_db(is_visible=False):
 
     x_pos = 0.5 * (main_window.resolution[0] - 24 * main_board.slot_resolution + side_bar.size[0])
-    y_pos = 0.33 * (main_window.resolution[1] - 21 * main_board.slot_resolution)
+    y_pos = 0.33 * (main_window.resolution[1] - 21 * main_board.slot_resolution) + len(main_board.daughterboards)*(22*main_board.slot_resolution)
 
     daughterboard = PCB.Daughterboard(main_window, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
 
@@ -65,13 +65,21 @@ def get_nand_db(is_visible=False):
         i = i + 1
 
 
-get_nand_db(False)
+get_nand_db(True)
 get_not_db(True)
 
 
 def button_action(button_id):
 
     global selected_output
+
+    for layer in main_window.all_layers:
+        for element in layer.gui_objects:
+            if isinstance(element, GUIUtils.Button):
+                if element.button_id == button_id:
+
+                    if element.button_id == 0:
+                        ...
 
     for daughterboard in main_board.daughterboards:
         if daughterboard.is_visible:
