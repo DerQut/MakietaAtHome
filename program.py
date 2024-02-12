@@ -4,7 +4,6 @@ import GUIDisplay
 import GUIObjects
 import GUIUtils
 import PCB
-import assets
 import parser
 
 from assets import *
@@ -14,14 +13,15 @@ import LogicElements
 pygame.display.init()
 pygame.font.init()
 
-main_window = GUIDisplay.Window(fps_cap=0)
+main_window = GUIDisplay.Window(fps_cap=30)
 
 bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=60)
 circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
 circuit_board.can_move = False
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
-test_button2 = GUIUtils.RoundedLabelledButton(side_bar, (128, 64), (128, 720), 0, 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Test")
+
+new_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20), 0, 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Nowa makieta")
 
 main_board = PCB.Motherboard(8, 8, 13, 40)
 
@@ -139,12 +139,6 @@ def create(id):
         get_jk_db(True)
     elif id == 4:
         get_d_db(True)
-
-
-get_not_db(True)
-get_nand_db(True)
-get_jk_db(True)
-#get_d_db(True)
 
 
 def button_action(button_id):

@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="added flip-flop functionality">
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="added flip-flop textures">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LogicElements.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicElements.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCB.py" beforeDir="false" afterPath="$PROJECT_DIR$/PCB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -247,7 +245,23 @@
       <option name="project" value="LOCAL" />
       <updated>1707763357333</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="added full flip-flop functionality">
+      <option name="closed" value="true" />
+      <created>1707770605627</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1707770605627</updated>
+    </task>
+    <task id="LOCAL-00022" summary="added flip-flop textures">
+      <option name="closed" value="true" />
+      <created>1707770628591</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1707770628591</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -281,6 +295,8 @@
     <MESSAGE value="added proper scrolling, fixed a bug in colour selection" />
     <MESSAGE value="finished gate-based section" />
     <MESSAGE value="added flip-flop functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="added flip-flop functionality" />
+    <MESSAGE value="added full flip-flop functionality" />
+    <MESSAGE value="added flip-flop textures" />
+    <option name="LAST_COMMIT_MESSAGE" value="added flip-flop textures" />
   </component>
 </project>
