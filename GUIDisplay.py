@@ -127,7 +127,6 @@ class ScrollingLayer(Layer):
         self.x_scroll_speed = x_scroll_speed
 
     def scroll(self, x_direction, y_direction):
-        print(x_direction, y_direction)
 
         can_move_up = 0
         can_move_down = 0
@@ -141,7 +140,6 @@ class ScrollingLayer(Layer):
 
             if gui_object.position[1]+gui_object.size[1]-self.size[1] > 0:
                 can_move_up = min(abs(gui_object.position[1]+gui_object.size[1]-self.size[1]), self.y_scroll_speed)
-                print(gui_object.position[1]+gui_object.size[1]-self.size[1])
 
             if gui_object.position[0] <= 0:
                 can_move_right = min(abs(gui_object.position[0]), self.x_scroll_speed)

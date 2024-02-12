@@ -45,7 +45,6 @@ class Gate:
         for gate in Gate.all_gates:
             i = 0
             while i < gate.max_inputs:
-                print(i)
                 if gate.inputs[i] == self:
                     gate.disconnect(i)
                 i = i + 1

@@ -79,7 +79,6 @@ def button_action(button_id):
 
                 if component.button_id == button_id and not isinstance(component.logic_element, LogicElements.Pin):
                     component.change_parameter(PCB.INVERSION)
-                    print(component.logic_element.inputs)
 
                 for inlet in component.inlets:
                     if inlet.button_id == button_id:
