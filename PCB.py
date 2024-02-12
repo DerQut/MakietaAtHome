@@ -189,6 +189,15 @@ class Inlet(GUIUtils.Button):
 
         self.component.inlets.append(self)
 
+    def draw(self):
+        super().draw()
+
+        if self.inlet_id == 1 and isinstance(self.component.logic_element, LogicElements.FlipFlop):
+            point1 = (self.position[0]+2*self.size[0], self.position[1]-0.5*self.daughterboard.motherboard.slot_resolution)
+            point2 = (self.position[0]+2*self.size[0]+0.66*self.daughterboard.motherboard.slot_resolution, self.position[1]+0.5*self.size[1])
+            point3 = (self.position[0]+2*self.size[0], self.position[1]+0.5*self.daughterboard.motherboard.slot_resolution+self.size[1])
+            pygame.draw.polygon(self.daughterboard.surface, self.fill_colour, (point1, point2, point3), width=5)
+
 
 class Outlet(GUIUtils.Button):
 

@@ -17,6 +17,8 @@ class Gate:
         self.external_state = is_inverted
         self.is_inverted = is_inverted
 
+        self.textures = [pygame.image.load("assets/none.png"), pygame.image.load("assets/none.png")]
+
         Gate.all_gates.append(self)
 
     def calculate_output(self):
@@ -131,3 +133,58 @@ class Pin(Buffer):
     def calculate_output(self):
         if self.has_input:
             super().calculate_output()
+
+
+class FlipFlop(Gate):
+
+    def __init__(self, inputs, is_rising_edge=True):
+        super().__init__(max_inputs=inputs, is_inverted=False)
+
+        self.is_rising_edge = is_rising_edge
+        self.previous_clock = False
+
+    def change_previous_clock(self):
+        if isinstance(self.inputs[1], Gate):
+            self.previous_clock = self.inputs[1].external_state
+        else:
+            self.previous_clock = False
+
+    def check_clock(self):
+        if isinstance(self.inputs[1], Gate):
+            if self.inputs[1].external_state != self.previous_clock and self.inputs[1].external_state == self.is_rising_edge:
+                return True
+            else:
+                return False
+        return True
+
+
+class DFlipFlop(FlipFlop):
+
+    def __init__(self, is_rising_edge=True):
+        super().__init__(2, is_rising_edge)
+
+    def calculate_output(self):
+        if self.check_clock():
+
+            if self.inputs[0] is None:
+                self.internal_state = False
+            else:
+                self.internal_state = self.inputs[0].external_state
+
+        self.change_previous_clock()
+
+
+class JKFlipFlop(FlipFlop):
+
+    def __init__(self, is_rising_edge=True):
+        super().__init__(3, is_rising_edge)
+
+    def calculate_output(self):
+        if self.check_clock():
+
+            if not self.internal_state and isinstance(self.inputs[0], Gate) and self.inputs[0].external_state:
+                self.internal_state = True
+            elif self.internal_state and isinstance(self.inputs[2], Gate) and self.inputs[2].external_state:
+                self.internal_state = False
+
+        self.change_previous_clock()

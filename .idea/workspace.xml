@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="added proper scrolling, fixed a bug in colour selection">
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="finished gate-based section">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LogicElements.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicElements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PCB.py" beforeDir="false" afterPath="$PROJECT_DIR$/PCB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -229,7 +231,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707757419950</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="finished gate-based section">
+      <option name="closed" value="true" />
+      <created>1707759001317</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1707759001317</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -261,6 +271,7 @@
     <MESSAGE value="small changes" />
     <MESSAGE value="added sublayers" />
     <MESSAGE value="added proper scrolling, fixed a bug in colour selection" />
-    <option name="LAST_COMMIT_MESSAGE" value="added proper scrolling, fixed a bug in colour selection" />
+    <MESSAGE value="finished gate-based section" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished gate-based section" />
   </component>
 </project>
