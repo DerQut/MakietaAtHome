@@ -5,6 +5,7 @@ import GUIObjects
 import GUIUtils
 import PCB
 import parser
+import programator
 
 from assets import *
 
@@ -15,12 +16,15 @@ pygame.font.init()
 
 main_window = GUIDisplay.Window(fps_cap=0)
 
+current_tempo = 30
+
 bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=60)
 circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
 circuit_board.can_move = False
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
-
+file_label = GUIObjects.Text(side_bar, 24, (20, 20), MacColoursDark.side_bar_colour, "assets/SFNSDisplay-Thin.otf", "Plik: _PRZEBIEG.txt")
+file_reload = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480-20-100, 20), 1, 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Odczyt")
 new_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20), 0, 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Nowa makieta")
 
 main_board = PCB.Motherboard(8, 8, 13, 40)
@@ -151,9 +155,7 @@ def button_action(button_id):
                 if element.button_id == button_id:
 
                     if element.button_id == 0:
-                        get_daughterboard(parser.get_value("Nowa makieta",
-                                                           "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- NAND + JK\n4- NAND + D",
-                                                           0))
+                        get_daughterboard(parser.get_value("Nowa makieta", "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- NAND + JK\n4- NAND + D", 0))
 
     for daughterboard in main_board.daughterboards:
         if daughterboard.is_visible:

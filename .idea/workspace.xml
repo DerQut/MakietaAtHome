@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="removed debug function calls">
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="renamed get_daughterboard functions and removed the debug framelimit">
+      <change afterPath="$PROJECT_DIR$/_PRZEBIEG.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/programator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
@@ -269,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707771743123</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="renamed get_daughterboard functions and removed the debug framelimit">
+      <option name="closed" value="true" />
+      <created>1707788194427</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1707788194427</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -306,6 +316,7 @@
     <MESSAGE value="added full flip-flop functionality" />
     <MESSAGE value="added flip-flop textures" />
     <MESSAGE value="removed debug function calls" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed debug function calls" />
+    <MESSAGE value="renamed get_daughterboard functions and removed the debug framelimit" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed get_daughterboard functions and removed the debug framelimit" />
   </component>
 </project>
