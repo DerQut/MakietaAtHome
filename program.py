@@ -13,7 +13,7 @@ import LogicElements
 pygame.display.init()
 pygame.font.init()
 
-main_window = GUIDisplay.Window(fps_cap=30)
+main_window = GUIDisplay.Window(fps_cap=0)
 
 bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=60)
 circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
@@ -30,7 +30,7 @@ selected_output = None
 current_tool = PCB.COLOUR
 
 
-def get_not_db(is_visible=False):
+def get_not_daughterboard(is_visible=False):
 
     x_pos = 0.5*(bg_layer.size[0] - 24*main_board.slot_resolution) + bg_layer.position[0]
     if not len(main_board.daughterboards):
@@ -57,7 +57,7 @@ def get_not_db(is_visible=False):
         i = i + 1
 
 
-def get_nand_db(is_visible=False):
+def get_nand_daughterboard(is_visible=False):
 
     x_pos = 0.5 * (bg_layer.size[0] - 24 * main_board.slot_resolution) + bg_layer.position[0]
     if not len(main_board.daughterboards):
@@ -79,7 +79,7 @@ def get_nand_db(is_visible=False):
         i = i + 1
 
 
-def get_jk_db(is_visible=False):
+def get_jk_daughterboard(is_visible=False):
 
     x_pos = 0.5 * (bg_layer.size[0] - 24 * main_board.slot_resolution) + bg_layer.position[0]
     if not len(main_board.daughterboards):
@@ -104,7 +104,7 @@ def get_jk_db(is_visible=False):
         i = i + 1
 
 
-def get_d_db(is_visible=False):
+def get_d_daughterboard(is_visible=False):
 
     x_pos = 0.5 * (bg_layer.size[0] - 24 * main_board.slot_resolution) + bg_layer.position[0]
     if not len(main_board.daughterboards):
@@ -129,16 +129,16 @@ def get_d_db(is_visible=False):
         i = i + 1
 
 
-def create(id):
+def get_daughterboard(id):
 
     if id == 1:
-        get_not_db(True)
+        get_not_daughterboard(True)
     elif id == 2:
-        get_nand_db(True)
+        get_nand_daughterboard(True)
     elif id == 3:
-        get_jk_db(True)
+        get_jk_daughterboard(True)
     elif id == 4:
-        get_d_db(True)
+        get_d_daughterboard(True)
 
 
 def button_action(button_id):
@@ -151,8 +151,9 @@ def button_action(button_id):
                 if element.button_id == button_id:
 
                     if element.button_id == 0:
-
-                        create(parser.get_value("Nowa makieta", "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- NAND + JK\n4- NAND + D", 0))
+                        get_daughterboard(parser.get_value("Nowa makieta",
+                                                           "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- NAND + JK\n4- NAND + D",
+                                                           0))
 
     for daughterboard in main_board.daughterboards:
         if daughterboard.is_visible:
