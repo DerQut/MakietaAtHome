@@ -71,7 +71,9 @@ class Text:
         self.font = pygame.font.Font(self.font_file, self.font_size)
         self.texture = self.font.render(self.text, True, self.font_colour)
 
-        self.is_visible = True
+        self.is_visible = is_visible
+
+        self.can_move = True
 
         self.layer.gui_objects.append(self)
 
@@ -82,6 +84,10 @@ class Text:
     def update(self):
         self.font = pygame.font.Font(self.font_file, self.font_size)
         self.texture = self.font.render(self.text, True, self.font_colour)
+
+    def move_by(self, x=0, y=0):
+        if self.can_move:
+            self.position = (self.position[0]+x, self.position[1]+y)
 
 
 class Image:

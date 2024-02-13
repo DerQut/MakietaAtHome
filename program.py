@@ -14,9 +14,7 @@ import LogicElements
 pygame.display.init()
 pygame.font.init()
 
-main_window = GUIDisplay.Window(fps_cap=0)
-
-current_tempo = 30
+main_window = GUIDisplay.Window(fps_cap=60)
 
 bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=60)
 circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
@@ -28,6 +26,7 @@ file_reload = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480-20-100, 2
 new_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20), 0, 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Nowa makieta")
 
 main_board = PCB.Motherboard(8, 8, 13, 40)
+main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
 
 
 selected_output = None
@@ -156,6 +155,8 @@ def button_action(button_id):
 
                     if element.button_id == 0:
                         get_daughterboard(parser.get_value("Nowa makieta", "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- NAND + JK\n4- NAND + D", 0))
+                    elif element.button_id == 1:
+                        main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
 
     for daughterboard in main_board.daughterboards:
         if daughterboard.is_visible:
@@ -182,6 +183,8 @@ def button_action(button_id):
 
 
 def loop_action(mouse_pos):
+
+    main_board.send_programming()
 
     LogicElements.Gate.in_tick()
     LogicElements.Gate.out_tick()

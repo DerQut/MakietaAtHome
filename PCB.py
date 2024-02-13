@@ -25,6 +25,10 @@ class Motherboard:
         self.coms = []
 
         self.slot_resolution = slot_resolution
+        self.tick_tempo = 60
+        self.current_tick = 0
+
+        self.programming = []
 
         while len(self.ins) < self.in_count:
             self.ins.append(LogicElements.Pin(True, False, True))
@@ -42,6 +46,23 @@ class Motherboard:
             for component in daughterboard.components:
                 if component.logic_element == logic_element:
                     component.change_colour(colour)
+
+    def program(self, sequence):
+        self.programming = sequence
+
+    def send_programming(self):
+        index = 0
+        if self.current_tick:
+            index = int(self.current_tick/self.tick_tempo)
+        print(self.current_tick, self.tick_tempo, index)
+        i = 0
+        while i < self.in_count:
+            self.ins[self.in_count-i-1].internal_state = self.programming[index][i]
+            i = i + 1
+
+        self.current_tick = self.current_tick + 1
+        if self.current_tick >= self.tick_tempo * len(self.programming):
+            self.current_tick = 0
 
 
 class Daughterboard(GUIDisplay.Sublayer):
