@@ -49,8 +49,11 @@ class Motherboard:
 
     def program(self, sequence):
         self.programming = sequence
+        self.current_tick = self.tick_tempo * len(self.programming)
 
     def send_programming(self):
+        if self.current_tick >= self.tick_tempo * len(self.programming):
+            return 1
         index = 0
         if self.current_tick:
             index = int(self.current_tick/self.tick_tempo)
@@ -61,8 +64,6 @@ class Motherboard:
             i = i + 1
 
         self.current_tick = self.current_tick + 1
-        if self.current_tick >= self.tick_tempo * len(self.programming):
-            self.current_tick = 0
 
 
 class Daughterboard(GUIDisplay.Sublayer):

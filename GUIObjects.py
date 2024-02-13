@@ -71,6 +71,8 @@ class Text:
         self.font = pygame.font.Font(self.font_file, self.font_size)
         self.texture = self.font.render(self.text, True, self.font_colour)
 
+        self.size = self.texture.get_size()
+
         self.is_visible = is_visible
 
         self.can_move = True

@@ -122,6 +122,9 @@ class Layer:
                 return True
         return False
 
+    def clear(self):
+        self.gui_objects.clear()
+
 
 class ScrollingLayer(Layer):
 
