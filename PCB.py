@@ -25,7 +25,7 @@ class Motherboard:
         self.coms = []
 
         self.slot_resolution = slot_resolution
-        self.tick_tempo = 60
+        self.tick_tempo = 30
         self.current_tick = 0
 
         self.programming = []
