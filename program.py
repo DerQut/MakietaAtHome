@@ -1,4 +1,5 @@
 import pygame
+from pygame import DOUBLEBUF
 
 import GUIDisplay
 import GUIObjects
@@ -14,7 +15,7 @@ import LogicElements
 pygame.display.init()
 pygame.font.init()
 
-main_window = GUIDisplay.Window(fps_cap=60)
+main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF)
 main_board = PCB.Motherboard(8, 8, 13, 40)
 
 bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=60)
