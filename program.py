@@ -18,7 +18,7 @@ pygame.font.init()
 main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF)
 main_board = PCB.Motherboard(8, 8, 13, 40)
 
-bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=60)
+bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=60, x_scroll_speed=0)
 circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
 circuit_board.can_move = False
 
@@ -35,7 +35,7 @@ run_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20
 
 main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
 
-input_layer = GUIDisplay.ScrollingLayer(main_window, (440, 330), (20, 122+55), Colours.white, y_scroll_speed=60)
+input_layer = GUIDisplay.ScrollingLayer(main_window, (440, 330), (20, 122+55), Colours.white, y_scroll_speed=60, x_scroll_speed=0)
 
 
 input_layer_overlay = GUIDisplay.Layer(main_window, (440, 55), (20, 122), Colours.white)
@@ -49,20 +49,23 @@ vertical1 = GUIObjects.Rect(input_layer_overlay, (1, 45), (input_layer.size[0] -
 vertical2 = GUIObjects.Rect(input_layer_overlay, (1, 45), (110, 10), MacColoursDark.side_bar_colour)
 
 
+output_layer = GUIDisplay.ScrollingLayer(main_window, (440, 902-(122+55+input_layer.size[1]+20)), (20, 122+55+input_layer.size[1]+20), Colours.white, y_scroll_speed=60, x_scroll_speed=0)
+
+
 selected_output = None
 current_tool = PCB.COLOUR
 
 
-def fill_layer():
+def fill_input_layer():
 
     input_layer.clear()
 
     padding = GUIObjects.Rect(input_layer, (1, 10), (0, 0), Colours.white, is_visible=False)
 
-    vertical1 = GUIObjects.Rect(input_layer, (1, 320), (input_layer.size[0] - 140 - 10, 0), MacColoursDark.side_bar_colour)
-    vertical1.can_move = False
-    vertical2 = GUIObjects.Rect(input_layer, (1, 320), (110, 0), MacColoursDark.side_bar_colour)
-    vertical2.can_move = False
+    new1 = GUIObjects.Rect(input_layer, (1, 320), (input_layer.size[0] - 140 - 10, 0), MacColoursDark.side_bar_colour)
+    new1.can_move = False
+    new2 = GUIObjects.Rect(input_layer, (1, 320), (110, 0), MacColoursDark.side_bar_colour)
+    new2.can_move = False
 
     y = 10
     i = 0
@@ -80,7 +83,7 @@ def fill_layer():
     padding = GUIObjects.Rect(input_layer, (1, 10), (0, y), Colours.white, is_visible=False)
 
 
-fill_layer()
+fill_input_layer()
 
 
 def get_not_daughterboard(is_visible=False):
@@ -207,7 +210,7 @@ def button_action(button_id):
 
                     elif element.button_id == 1:
                         main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
-                        fill_layer()
+                        fill_input_layer()
 
                     elif element.button_id == 2:
                         main_board.tick_tempo = parser.get_value("Okres sygnału wejściowego", "Zmiana okresu sygnału wejściowego", main_board.tick_tempo)

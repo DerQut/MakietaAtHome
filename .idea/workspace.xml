@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="added file programming basics">
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="removed the default FULLSCREEN flag">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIDisplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIDisplay.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIObjects.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIObjects.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCB.py" beforeDir="false" afterPath="$PROJECT_DIR$/PCB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_PRZEBIEG.txt" beforeDir="false" afterPath="$PROJECT_DIR$/_PRZEBIEG.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -298,7 +294,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707796786010</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="removed the default FULLSCREEN flag">
+      <option name="closed" value="true" />
+      <created>1708004017996</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1708004017996</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -313,7 +317,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="initial commit" />
     <MESSAGE value="added colours, some fixes" />
     <MESSAGE value="gitnore" />
     <MESSAGE value="basically got the rendering engine working" />
@@ -338,6 +341,7 @@
     <MESSAGE value="renamed get_daughterboard functions and removed the debug framelimit" />
     <MESSAGE value="preparations for the file programming" />
     <MESSAGE value="added file programming basics" />
-    <option name="LAST_COMMIT_MESSAGE" value="added file programming basics" />
+    <MESSAGE value="removed the default FULLSCREEN flag" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed the default FULLSCREEN flag" />
   </component>
 </project>
