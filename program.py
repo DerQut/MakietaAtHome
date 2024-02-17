@@ -1,11 +1,9 @@
-import pygame
 from pygame import DOUBLEBUF
 
 import GUIDisplay
 import GUIObjects
 import GUIUtils
 import PCB
-import assets
 import parser
 import programator
 
@@ -38,7 +36,7 @@ run_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20
 
 main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
 
-input_layer = GUIDisplay.ScrollingLayer(main_window, (440, 330), (20, 122+55), Colours.white, y_scroll_speed=60, x_scroll_speed=0)
+input_layer = GUIDisplay.ScrollingLayer(main_window, (440, 240), (20, 122+55), Colours.white, y_scroll_speed=60, x_scroll_speed=0)
 
 
 input_layer_overlay = GUIDisplay.Layer(main_window, (440, 55), (20, 122), Colours.white)
@@ -127,13 +125,17 @@ def fill_output_layer():
     for obj in output_layer.gui_objects:
         if isinstance(obj, GUIObjects.Rect) and obj.is_visible and obj.size[0] > 1 and obj.size[1] > 1 and not isinstance(obj, GUIUtils.Button):
             j = 0
+            rect = None
             while j < len(main_board.saved_outs):
                 rect_width = obj.rect.width / len(main_board.saved_outs)
                 rect_height = 5
                 rect_left = j*rect_width + obj.rect.left
                 rect_top = obj.rect.bottom - main_board.saved_outs[j][i] * (obj.rect.height - 5)
+                prev_rect = rect
                 rect = pygame.rect.Rect((int(rect_left), rect_top), (math.ceil(rect_width), rect_height))
                 pygame.draw.rect(output_layer.surface, main_board.outs[i].masters[0].on_colour, rect)
+                if j and main_board.saved_outs[j][i] != main_board.saved_outs[j-1][i]:
+                    pygame.draw.rect(output_layer.surface, main_board.outs[i].masters[0].on_colour, pygame.rect.Rect(rect_left, min(rect_top, prev_rect.top), 5, max(abs(rect.top-prev_rect.bottom), abs(rect.bottom-prev_rect.top))))
                 j = j + 1
             i = i + 1
         elif isinstance(obj, GUIUtils.LabelledButton):
