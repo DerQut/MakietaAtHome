@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="Added an option to change button labels for the output layer">
-      <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
-    </list>
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="added visible signal edges to the output layer" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -336,7 +334,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708138561818</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="added visible signal edges to the output layer">
+      <option name="closed" value="true" />
+      <created>1708139419432</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1708139419432</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -351,7 +357,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="indescribable progress" />
     <MESSAGE value="cosmetic changes" />
     <MESSAGE value="another huge advancement" />
     <MESSAGE value="fixed inlets not disappearing when deleting a component" />
@@ -376,6 +381,7 @@
     <MESSAGE value="slightly reworked the rendering engine to allow dynamic blitting during program.py loop_action()" />
     <MESSAGE value="Feature-functional program" />
     <MESSAGE value="Added an option to change button labels for the output layer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added an option to change button labels for the output layer" />
+    <MESSAGE value="added visible signal edges to the output layer" />
+    <option name="LAST_COMMIT_MESSAGE" value="added visible signal edges to the output layer" />
   </component>
 </project>

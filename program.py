@@ -54,6 +54,7 @@ output_layer_overlay = GUIDisplay.Layer(main_window, (440, 55), (20, 122+55+inpu
 id_label_out = GUIObjects.Text(output_layer_overlay, 24, (20, 10), Colours.black, "assets/SF-Mono-Light.otf", "id")
 vertical2_out = GUIObjects.Rect(output_layer_overlay, (1, 45), (110, 10), MacColoursDark.side_bar_colour)
 underline_out = GUIObjects.Rect(output_layer_overlay, (420, 1), (10, 54), MacColoursDark.side_bar_colour)
+graph_label = GUIObjects.Text(output_layer_overlay, 24, (120, 10), Colours.black, "assets/SF-Mono-Light.otf", "Graph")
 
 output_layer = GUIDisplay.ScrollingLayer(main_window, (440, 902-(122+55+input_layer.size[1]+20+output_layer_overlay.size[1])), (20, 122+55+input_layer.size[1]+20+output_layer_overlay.size[1]), Colours.white, y_scroll_speed=60, x_scroll_speed=0)
 
