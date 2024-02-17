@@ -23,10 +23,14 @@ class Window:
 
         self.is_running = True
 
-    def draw(self):
+    def pre_draw(self):
 
         self.screen.fill(self.bg_colour)
 
+        for layer in self.all_layers:
+            layer.pre_draw()
+
+    def draw(self):
         for layer in self.all_layers:
             layer.draw()
 
@@ -37,7 +41,7 @@ class Window:
 
         while self.is_running:
 
-            self.draw()
+            self.pre_draw()
 
             events = pygame.event.get()
             mouse_pos = pygame.mouse.get_pos()
@@ -76,6 +80,7 @@ class Window:
             if program.event_action(events, mouse_pos) == pygame.WINDOWCLOSE:
                 self.is_running = False
 
+            self.draw()
             pygame.display.flip()
             clock.tick(self.fps_cap)
 
@@ -100,7 +105,7 @@ class Layer:
 
         self.sublayers = []
 
-    def draw(self):
+    def pre_draw(self):
 
         if self.is_visible:
             self.surface.fill(self.bg_colour)
@@ -108,10 +113,8 @@ class Layer:
             for gui_object in self.gui_objects:
                 gui_object.draw()
 
-            for sublayer in self.sublayers:
-                sublayer.draw()
-
-            self.window.screen.blit(self.surface, self.position)
+    def draw(self):
+        self.window.screen.blit(self.surface, self.position)
 
     def move_by(self, x=0, y=0):
         self.position = (self.position[0]+x, self.position[1]+y)
