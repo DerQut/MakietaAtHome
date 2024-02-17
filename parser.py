@@ -76,3 +76,10 @@ def get_colour(previous_colour):
         return colour_code[0]
 
     return previous_colour
+
+
+def get_string(title, prompt, initial_value):
+    value = simpledialog.askstring(title, prompt, initialvalue=initial_value)
+    if value is not None:
+        return value
+    return initial_value

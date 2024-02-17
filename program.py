@@ -5,6 +5,7 @@ import GUIDisplay
 import GUIObjects
 import GUIUtils
 import PCB
+import assets
 import parser
 import programator
 
@@ -93,7 +94,7 @@ def pre_fill_output_layer():
 
     output_layer.clear()
 
-    padding = GUIObjects.Rect(output_layer, (1, 10), (0, 0), Colours.white, is_visible=False)
+    padding = GUIObjects.Rect(output_layer, (1, 5), (0, 0), Colours.white, is_visible=False)
 
     new1 = GUIObjects.Rect(output_layer, (1, output_layer.size[1]-10), (110, 0), fill_colour=MacColoursDark.side_bar_colour)
     new1.can_move = False
@@ -101,17 +102,16 @@ def pre_fill_output_layer():
     y = 0
     i = 0
     for out in main_board.outs:
-        new2 = GUIObjects.Text(output_layer, 24, (20, y+50), Colours.black, "assets/SF-Mono-Light.otf", "OUT"+str(i))
+        new2 = GUIUtils.LabelledButton(output_layer, (90, 80), (10, y+25), 20+i, 24, MacColoursDark.side_bar_colour, "assets/SF-Mono-Light.otf", "OUT"+str(i), Colours.white)
+        print(new2.button_id)
         new3 = GUIObjects.Rect(output_layer, (output_layer.size[0]-20-111, 80), (120, y+25), MacColours.side_bar_inactive_colour)
         y = y + 100
         i = i + 1
 
-    padding = GUIObjects.Rect(output_layer, (1, 10), (0, y+50), Colours.white, is_visible=False)
+    padding = GUIObjects.Rect(output_layer, (1, 5), (0, y+50), Colours.white, is_visible=False)
 
 
 def fill_output_layer():
-
-    print(main_board.saved_outs)
 
     if not len(main_board.outs):
         return -1
@@ -125,7 +125,7 @@ def fill_output_layer():
 
     i = 0
     for obj in output_layer.gui_objects:
-        if isinstance(obj, GUIObjects.Rect) and obj.is_visible and obj.size[0] > 1 and obj.size[1] > 1:
+        if isinstance(obj, GUIObjects.Rect) and obj.is_visible and obj.size[0] > 1 and obj.size[1] > 1 and not isinstance(obj, GUIUtils.Button):
             j = 0
             while j < len(main_board.saved_outs):
                 rect_width = obj.rect.width / len(main_board.saved_outs)
@@ -136,6 +136,9 @@ def fill_output_layer():
                 pygame.draw.rect(output_layer.surface, main_board.outs[i].masters[0].on_colour, rect)
                 j = j + 1
             i = i + 1
+        elif isinstance(obj, GUIUtils.LabelledButton):
+            obj.label.font_colour = main_board.outs[i].masters[0].on_colour
+            obj.label.update()
     return 0
 
 
@@ -250,6 +253,7 @@ def get_daughterboard(id):
 
 
 def button_action(button_id):
+    print(button_id)
 
     global selected_output
 
@@ -258,22 +262,26 @@ def button_action(button_id):
             if isinstance(element, GUIUtils.Button):
                 if element.button_id == button_id:
 
-                    if element.button_id == 0:
+                    if button_id == 0:
                         get_daughterboard(parser.get_value("Nowa makieta", "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- NAND + JK\n4- NAND + D", 0))
 
-                    elif element.button_id == 1:
+                    elif button_id == 1:
                         main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
                         fill_input_layer()
 
-                    elif element.button_id == 2:
+                    elif button_id == 2:
                         main_board.tick_tempo = parser.get_value("Okres sygnału wejściowego", "Zmiana okresu sygnału wejściowego", main_board.tick_tempo)
+                        main_board.current_tick = main_board.tick_tempo * len(main_board.programming)
                         speed_change_button.label.text = str(main_board.tick_tempo)
                         speed_change_button.label.update()
                         speed_change_button.center_text()
 
-                    elif element.button_id == 3:
+                    elif button_id == 3:
                         main_board.current_tick = 0
                         main_board.saved_outs.clear()
+
+                    elif 20+len(main_board.outs) > button_id >= 20:
+                        output_layer.gui_objects[button_id*3-58].change_label(parser.get_string(f"Zmiana nazwy OUT{button_id-20}", f"Nowa nazwa dla OUT{button_id-20}", output_layer.gui_objects[button_id*3-58].label.text))
 
     for daughterboard in main_board.daughterboards:
         if daughterboard.is_visible:

@@ -39,6 +39,11 @@ class LabelledButton(Button):
     def center_text(self):
         self.label.position = (self.position[0] + 0.5 * (self.size[0] - self.label.texture.get_width()), self.position[1] + 0.5 * (self.size[1] - self.label.texture.get_height()))
 
+    def change_label(self, new_label):
+        self.label.text = new_label
+        self.label.update()
+        self.center_text()
+
 
 class RoundedLabelledButton(LabelledButton):
 
