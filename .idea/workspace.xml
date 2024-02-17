@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="removed the default FULLSCREEN flag">
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="slightly reworked the rendering engine to allow dynamic blitting during program.py loop_action()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PCB.py" beforeDir="false" afterPath="$PROJECT_DIR$/PCB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_PRZEBIEG.txt" beforeDir="false" afterPath="$PROJECT_DIR$/_PRZEBIEG.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -302,7 +304,23 @@
       <option name="project" value="LOCAL" />
       <updated>1708004017996</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="starting work on output graphing, removed horizontal scrolling">
+      <option name="closed" value="true" />
+      <created>1708004669321</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1708004669321</updated>
+    </task>
+    <task id="LOCAL-00029" summary="slightly reworked the rendering engine to allow dynamic blitting during program.py loop_action()">
+      <option name="closed" value="true" />
+      <created>1708132640129</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1708132640129</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -317,8 +335,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added colours, some fixes" />
-    <MESSAGE value="gitnore" />
     <MESSAGE value="basically got the rendering engine working" />
     <MESSAGE value="preparations for the logic system to be put in place" />
     <MESSAGE value="indescribable progress" />
@@ -342,6 +358,8 @@
     <MESSAGE value="preparations for the file programming" />
     <MESSAGE value="added file programming basics" />
     <MESSAGE value="removed the default FULLSCREEN flag" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed the default FULLSCREEN flag" />
+    <MESSAGE value="starting work on output graphing, removed horizontal scrolling" />
+    <MESSAGE value="slightly reworked the rendering engine to allow dynamic blitting during program.py loop_action()" />
+    <option name="LAST_COMMIT_MESSAGE" value="slightly reworked the rendering engine to allow dynamic blitting during program.py loop_action()" />
   </component>
 </project>

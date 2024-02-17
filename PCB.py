@@ -30,6 +30,8 @@ class Motherboard:
 
         self.programming = []
 
+        self.saved_outs = []
+
         while len(self.ins) < self.in_count:
             self.ins.append(LogicElements.Pin(True, False, True))
 
@@ -55,15 +57,22 @@ class Motherboard:
         if self.current_tick >= self.tick_tempo * len(self.programming):
             return 1
         index = 0
+        out_cache = []
         if self.current_tick:
             index = int(self.current_tick/self.tick_tempo)
-        print(self.current_tick, self.tick_tempo, index)
         i = 0
         while i < self.in_count:
-            self.ins[self.in_count-i-1].internal_state = self.programming[index][i]
+            self.ins[i].internal_state = self.programming[index][-i-1]
             i = i + 1
 
+        for out in self.outs:
+            out_cache.append(out.internal_state)
+
+        if self.current_tick >= 2:
+            self.saved_outs.append(out_cache)
+
         self.current_tick = self.current_tick + 1
+        return 0
 
 
 class Daughterboard(GUIDisplay.Sublayer):
@@ -77,17 +86,26 @@ class Daughterboard(GUIDisplay.Sublayer):
 
         i = 0
         while i < self.motherboard.in_count:
-            new = Component(self, (1, 1), (1, 1+i), assets.MacColours.yellow, self.motherboard.ins[i])
+            colour = assets.MacColours.yellow
+            if len(self.motherboard.ins[i].masters):
+                colour = self.motherboard.ins[i].masters[0].on_colour
+            new = Component(self, (1, 1), (1, 1+i), colour, self.motherboard.ins[i])
             i = i + 1
 
         i = 0
         while i < self.motherboard.out_count:
-            new = Component(self, (1, 1), (1, size[1]-2-i), assets.MacColours.yellow, self.motherboard.outs[self.motherboard.out_count-i-1])
+            colour = assets.MacColours.yellow
+            if len(self.motherboard.outs[self.motherboard.out_count-i-1].masters):
+                colour = self.motherboard.outs[self.motherboard.out_count-i-1].masters[0].on_colour
+            new = Component(self, (1, 1), (1, size[1]-2-i), colour, self.motherboard.outs[self.motherboard.out_count-i-1])
             i = i + 1
 
         i = 0
         while i < self.motherboard.com_count:
-            new = Component(self, (1, 1), (size[0]-2, 0.5*(size[1]-self.motherboard.com_count)+i), assets.MacColours.yellow, self.motherboard.coms[i])
+            colour = assets.MacColours.yellow
+            if len(self.motherboard.coms[i].masters):
+                colour = self.motherboard.coms[i].masters[0].on_colour
+            new = Component(self, (1, 1), (size[0]-2, 0.5*(size[1]-self.motherboard.com_count)+i), colour, self.motherboard.coms[i])
             i = i + 1
 
         self.motherboard.daughterboards.append(self)
