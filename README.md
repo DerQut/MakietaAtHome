@@ -21,7 +21,7 @@ Następnie z sekcji [Releases](https://github.com/DerQut/popMakieta/releases) po
 ## Funkcje
 
 - Wyświetlanie zczytanych danych z pliku _PRZEBIEG.txt w tabeli (w postaci binarnej oraz dziesiętnej)
-- Wykreślanie stanów pinów wewnętrznych w czasie wysyłania sygnału wejściowego
+- Wykreślanie stanów pinów OUT w czasie wysyłania sygnału wejściowego
 - Zmiana koloru bramki, przerzutnika, pinu oraz płytki (prawy przycisk myszy)
 - Zmiana zbocza wyzwalającego w przerzutniku (klikając lewym przyciskiem myszy na przerzutnik)
 - Włączenie/wyłączenie negacji na bramce (klikając lewym przyciskiem myszy)
