@@ -1,4 +1,5 @@
-from pygame import DOUBLEBUF
+import pygame.transform
+from pygame import DOUBLEBUF, RESIZABLE
 
 import GUIDisplay
 import GUIObjects
@@ -16,11 +17,12 @@ import LogicElements
 pygame.display.init()
 pygame.font.init()
 
-main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF)
+main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF | RESIZABLE, resolution=(1280, 720))
 main_board = PCB.Motherboard(8, 8, 13, 40)
 
-bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920-480, 1080), (480, 0), Colours.black, y_scroll_speed=60, x_scroll_speed=0)
+bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920*2, 1080), (480, 0), Colours.black, y_scroll_speed=60, x_scroll_speed=0)
 circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
+circuit_board.texture = pygame.transform.scale2x(circuit_board.texture)
 circuit_board.can_move = False
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
@@ -147,9 +149,9 @@ def fill_output_layer():
 
 def get_not_daughterboard(is_visible=False):
 
-    x_pos = 0.5*(bg_layer.size[0] - 24*main_board.slot_resolution) + bg_layer.position[0]
+    x_pos = 0.5*(1920-480 - 24*main_board.slot_resolution) + bg_layer.position[0]
     if not len(main_board.daughterboards):
-        y_pos = 0.33 * (bg_layer.size[1] - 21 * main_board.slot_resolution)
+        y_pos = 0.33 * (1080 - 21 * main_board.slot_resolution)
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards) - 1].position[1] + 22 * main_board.slot_resolution
 
@@ -173,9 +175,9 @@ def get_not_daughterboard(is_visible=False):
 
 def get_nand_daughterboard(is_visible=False):
 
-    x_pos = 0.5 * (bg_layer.size[0] - 24 * main_board.slot_resolution) + bg_layer.position[0]
+    x_pos = 0.5 * (1920-480 - 24 * main_board.slot_resolution) + 480
     if not len(main_board.daughterboards):
-        y_pos = 0.33 * (bg_layer.size[1] - 21 * main_board.slot_resolution)
+        y_pos = 0.33 * (1920-480 - 21 * main_board.slot_resolution)
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + 22*main_board.slot_resolution
 
@@ -195,9 +197,9 @@ def get_nand_daughterboard(is_visible=False):
 
 def get_jk_daughterboard(is_visible=False):
 
-    x_pos = 0.5 * (bg_layer.size[0] - 24 * main_board.slot_resolution) + bg_layer.position[0]
+    x_pos = 0.5 * (1920-480 - 24 * main_board.slot_resolution) + 480
     if not len(main_board.daughterboards):
-        y_pos = 0.33 * (bg_layer.size[1] - 21 * main_board.slot_resolution)
+        y_pos = 0.33 * (1080 - 21 * main_board.slot_resolution)
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards) - 1].position[
                     1] + 22 * main_board.slot_resolution
@@ -220,9 +222,9 @@ def get_jk_daughterboard(is_visible=False):
 
 def get_d_daughterboard(is_visible=False):
 
-    x_pos = 0.5 * (bg_layer.size[0] - 24 * main_board.slot_resolution) + bg_layer.position[0]
+    x_pos = 0.5 * (1920-480 - 24 * main_board.slot_resolution) + 480
     if not len(main_board.daughterboards):
-        y_pos = 0.33 * (bg_layer.size[1] - 21 * main_board.slot_resolution)
+        y_pos = 0.33 * (1080 - 21 * main_board.slot_resolution)
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards) - 1].position[
                     1] + 22 * main_board.slot_resolution

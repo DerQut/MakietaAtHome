@@ -20,12 +20,17 @@ class Window:
         self.all_layers = []
 
         self.screen = pygame.display.set_mode(self.resolution, self.flags)
+        self.main_layer = pygame.surface.Surface((1920*2, 1080*2))
+
+        self.vertical_scale_factor = 1
+        self.horizontal_scale_factor = 1
 
         self.is_running = True
 
     def pre_draw(self):
 
         self.screen.fill(self.bg_colour)
+        self.main_layer.fill(self.bg_colour)
 
         for layer in self.all_layers:
             layer.pre_draw()
@@ -33,6 +38,10 @@ class Window:
     def draw(self):
         for layer in self.all_layers:
             layer.draw()
+
+        self.vertical_scale_factor = self.screen.get_height() / 1080
+        rescaled_layer = pygame.transform.smoothscale_by(self.main_layer, self.vertical_scale_factor)
+        self.screen.blit(rescaled_layer, (0, 0))
 
     def run(self):
 
@@ -45,8 +54,9 @@ class Window:
 
             events = pygame.event.get()
             mouse_pos = pygame.mouse.get_pos()
+            rescaled_mouse_pos = (mouse_pos[0]/self.vertical_scale_factor, mouse_pos[1]/self.vertical_scale_factor)
 
-            program.loop_action(mouse_pos)
+            program.loop_action(rescaled_mouse_pos)
 
             for event in events:
                 if event.type == pygame.WINDOWCLOSE:
@@ -55,16 +65,16 @@ class Window:
                 elif event.type == pygame.MOUSEWHEEL:
                     for layer in self.all_layers:
                         if isinstance(layer, ScrollingLayer):
-                            if layer.mouse_check(mouse_pos):
+                            if layer.mouse_check(rescaled_mouse_pos):
                                 layer.scroll(event.x, event.y)
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         for layer in reversed(self.all_layers):
-                            if layer.mouse_check(mouse_pos) and layer.is_visible:
+                            if layer.mouse_check(rescaled_mouse_pos) and layer.is_visible:
                                 for gui_object in reversed(layer.gui_objects):
                                     if isinstance(gui_object, GUIUtils.Button):
-                                        if gui_object.mouse_check(mouse_pos):
+                                        if gui_object.mouse_check(rescaled_mouse_pos):
                                             gui_object.is_clicked = True
                                             program.button_action(gui_object.button_id)
                                             break
@@ -77,7 +87,7 @@ class Window:
                                 if isinstance(gui_object, GUIUtils.Button):
                                     gui_object.is_clicked = False
 
-            if program.event_action(events, mouse_pos) == pygame.WINDOWCLOSE:
+            if program.event_action(events, rescaled_mouse_pos) == pygame.WINDOWCLOSE:
                 self.is_running = False
 
             self.draw()
@@ -114,7 +124,7 @@ class Layer:
                 gui_object.draw()
 
     def draw(self):
-        self.window.screen.blit(self.surface, self.position)
+        self.window.main_layer.blit(self.surface, self.position)
 
     def move_by(self, x=0, y=0):
         self.position = (self.position[0]+x, self.position[1]+y)
