@@ -77,7 +77,7 @@ class Motherboard:
 
 class Daughterboard(GUIDisplay.Sublayer):
 
-    def __init__(self, window, motherboard, size, position, bg_colour=assets.MacColoursDark.green, is_visible=True):
+    def __init__(self, window, motherboard, size, position, bg_colour=assets.MacColoursDark.side_bar_inactive_colour, is_visible=True):
         super().__init__(window, (size[0]*motherboard.slot_resolution, size[1]*motherboard.slot_resolution), position, bg_colour, is_visible)
 
         self.motherboard = motherboard
@@ -86,7 +86,7 @@ class Daughterboard(GUIDisplay.Sublayer):
 
         i = 0
         while i < self.motherboard.in_count:
-            colour = assets.MacColours.yellow
+            colour = assets.Colours.white
             if len(self.motherboard.ins[i].masters):
                 colour = self.motherboard.ins[i].masters[0].on_colour
             new = Component(self, (1, 1), (1, 1+i), colour, self.motherboard.ins[i])
@@ -94,7 +94,7 @@ class Daughterboard(GUIDisplay.Sublayer):
 
         i = 0
         while i < self.motherboard.out_count:
-            colour = assets.MacColours.yellow
+            colour = assets.MacColoursDark.blue
             if len(self.motherboard.outs[self.motherboard.out_count-i-1].masters):
                 colour = self.motherboard.outs[self.motherboard.out_count-i-1].masters[0].on_colour
             new = Component(self, (1, 1), (1, size[1]-2-i), colour, self.motherboard.outs[self.motherboard.out_count-i-1])
@@ -102,7 +102,7 @@ class Daughterboard(GUIDisplay.Sublayer):
 
         i = 0
         while i < self.motherboard.com_count:
-            colour = assets.MacColours.yellow
+            colour = assets.Colours.white
             if len(self.motherboard.coms[i].masters):
                 colour = self.motherboard.coms[i].masters[0].on_colour
             new = Component(self, (1, 1), (size[0]-2, 0.5*(size[1]-self.motherboard.com_count)+i), colour, self.motherboard.coms[i])
@@ -130,7 +130,7 @@ class Component(GUIUtils.Button):
         self.logic_element.masters.append(self)
 
         self.on_colour = fill_colour
-        self.off_colour = (self.on_colour[0] * 0.7, self.on_colour[1] * 0.7, self.on_colour[2] * 0.7)
+        self.off_colour = (self.on_colour[0] * 0.5, self.on_colour[1] * 0.5, self.on_colour[2] * 0.5)
 
         self.fill_colour = self.on_colour
 
@@ -205,7 +205,7 @@ class Component(GUIUtils.Button):
     def change_colour(self, new_colour):
 
         self.on_colour = new_colour
-        self.off_colour = (self.on_colour[0] * 0.7, self.on_colour[1] * 0.7, self.on_colour[2] * 0.7)
+        self.off_colour = (self.on_colour[0] * 0.5, self.on_colour[1] * 0.5, self.on_colour[2] * 0.5)
 
         self.update_io_colours()
 

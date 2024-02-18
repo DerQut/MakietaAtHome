@@ -21,7 +21,7 @@ main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF | RESIZABLE, resolut
 main_board = PCB.Motherboard(8, 8, 13, 40)
 
 bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920*2, 1080), (480, 0), Colours.black, y_scroll_speed=75, x_scroll_speed=0)
-circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board_2.png")
+circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board.png")
 circuit_board.texture = pygame.transform.scale2x(circuit_board.texture)
 circuit_board.can_move = False
 
@@ -162,14 +162,14 @@ def get_not_daughterboard(is_visible=False):
 
     i = 0
     while i < 3:
-        new = PCB.Component(daughterboard, (2, 2), (6, 4 + i*2), MacColours.yellow, LogicElements.Buffer(True))
-        new = PCB.Component(daughterboard, (2, 2), (6, 11 + i * 2), MacColours.yellow, LogicElements.Buffer(True))
+        new = PCB.Component(daughterboard, (2, 2), (6, 4 + i*2), Colours.white, LogicElements.Buffer(True))
+        new = PCB.Component(daughterboard, (2, 2), (6, 11 + i * 2), Colours.white, LogicElements.Buffer(True))
         i = i + 1
 
     i = 0
     while i < 4:
-        new = PCB.Component(daughterboard, (2, 2), (16, 1+i*2), MacColours.yellow, LogicElements.ORGate(2, True))
-        new = PCB.Component(daughterboard, (2, 2), (16, 12 + i * 2), MacColours.yellow, LogicElements.ORGate(2, True))
+        new = PCB.Component(daughterboard, (2, 2), (16, 1+i*2), Colours.white, LogicElements.ORGate(2, True))
+        new = PCB.Component(daughterboard, (2, 2), (16, 12 + i * 2), Colours.white, LogicElements.ORGate(2, True))
         i = i + 1
 
 
@@ -188,10 +188,10 @@ def get_nand_daughterboard(is_visible=False):
 
     i = 0
     while i < 2:
-        new = PCB.Component(daughterboard, (2, 4), (6, 1+i*4), MacColours.yellow, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), MacColours.yellow, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (16, 1 + i * 4), MacColours.yellow, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (16, 12 + i * 4), MacColours.yellow, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (6, 1+i*4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (16, 1 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (16, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
         i = i + 1
 
 
@@ -213,10 +213,10 @@ def get_jk_daughterboard(is_visible=False):
 
     i = 0
     while i < 2:
-        new = PCB.Component(daughterboard, (2, 4), (6, 1 + i * 4), MacColours.yellow, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), MacColours.yellow, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (3, 4), (16, 1 + i * 4), MacColours.yellow, LogicElements.JKFlipFlop())
-        new = PCB.Component(daughterboard, (3, 4), (16, 12 + i * 4), MacColours.yellow, LogicElements.JKFlipFlop())
+        new = PCB.Component(daughterboard, (2, 4), (6, 1 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (3, 4), (16, 1 + i * 4), Colours.white, LogicElements.JKFlipFlop())
+        new = PCB.Component(daughterboard, (3, 4), (16, 12 + i * 4), Colours.white, LogicElements.JKFlipFlop())
         i = i + 1
 
 
@@ -238,10 +238,10 @@ def get_d_daughterboard(is_visible=False):
 
     i = 0
     while i < 2:
-        new = PCB.Component(daughterboard, (2, 4), (6, 1 + i * 4), MacColours.yellow, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), MacColours.yellow, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (3, 4), (16, 1 + i * 4), MacColours.yellow, LogicElements.DFlipFlop())
-        new = PCB.Component(daughterboard, (3, 4), (16, 12 + i * 4), MacColours.yellow, LogicElements.DFlipFlop())
+        new = PCB.Component(daughterboard, (2, 4), (6, 1 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (3, 4), (16, 1 + i * 4), Colours.white, LogicElements.DFlipFlop())
+        new = PCB.Component(daughterboard, (3, 4), (16, 12 + i * 4), Colours.white, LogicElements.DFlipFlop())
         i = i + 1
 
 

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="added a label for the graphing section of the output layer">
+    <list default="true" id="72be809d-8b92-4cd2-a9ec-739a9158f1df" name="Changes" comment="changed the default y_scrolling_speed values">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIDisplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIDisplay.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PCB.py" beforeDir="false" afterPath="$PROJECT_DIR$/PCB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/circuit_board.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/circuit_board.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -346,7 +347,23 @@
       <option name="project" value="LOCAL" />
       <updated>1708139419432</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="added an option to resize main program window">
+      <option name="closed" value="true" />
+      <created>1708272815116</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1708272815116</updated>
+    </task>
+    <task id="LOCAL-00034" summary="changed the default y_scrolling_speed values">
+      <option name="closed" value="true" />
+      <created>1708273089693</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1708273089693</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -361,8 +378,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="cosmetic changes" />
-    <MESSAGE value="another huge advancement" />
     <MESSAGE value="fixed inlets not disappearing when deleting a component" />
     <MESSAGE value="added a lot" />
     <MESSAGE value="added COM ports" />
@@ -386,6 +401,8 @@
     <MESSAGE value="Feature-functional program" />
     <MESSAGE value="Added an option to change button labels for the output layer" />
     <MESSAGE value="added visible signal edges to the output layer" />
-    <option name="LAST_COMMIT_MESSAGE" value="added visible signal edges to the output layer" />
+    <MESSAGE value="added an option to resize main program window" />
+    <MESSAGE value="changed the default y_scrolling_speed values" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed the default y_scrolling_speed values" />
   </component>
 </project>
