@@ -99,7 +99,7 @@ class Layer:
 
     all_layers = []
 
-    def __init__(self, window, size, position, bg_colour=assets.Colours.white, is_visible=True):
+    def __init__(self, window: Window, size: tuple, position: tuple, bg_colour=assets.Colours.white, is_visible=True):
 
         self.window = window
         self.size = size
@@ -141,7 +141,7 @@ class Layer:
 
 class ScrollingLayer(Layer):
 
-    def __init__(self, window, size, position, bg_colour=assets.Colours.white, y_scroll_speed=30, x_scroll_speed=20, is_visible=True):
+    def __init__(self, window: Window, size: tuple, position: tuple, bg_colour=assets.Colours.white, y_scroll_speed=30, x_scroll_speed=20, is_visible=True):
         super().__init__(window, size, position, bg_colour, is_visible)
 
         self.y_scroll_speed = y_scroll_speed
@@ -189,7 +189,7 @@ class ScrollingLayer(Layer):
 
 class Sublayer(Layer):
 
-    def __init__(self, master: Layer, size, position, bg_colour=assets.Colours.white, is_visible=True):
+    def __init__(self, master: Layer, size: tuple, position: tuple, bg_colour=assets.Colours.white, is_visible=True):
         super().__init__(master.window, size, position, bg_colour, is_visible)
 
         self.can_move = True

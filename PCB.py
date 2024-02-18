@@ -1,7 +1,6 @@
 import pygame
 
 import GUIDisplay
-import GUIObjects
 import GUIUtils
 import LogicElements
 import assets
@@ -14,7 +13,7 @@ INVERSION = 3
 
 class Motherboard:
 
-    def __init__(self, in_count, out_count, com_count, slot_resolution):
+    def __init__(self, in_count: int, out_count: int, com_count: int, slot_resolution: int):
 
         self.in_count = in_count
         self.out_count = out_count
@@ -77,8 +76,8 @@ class Motherboard:
 
 class Daughterboard(GUIDisplay.Sublayer):
 
-    def __init__(self, window, motherboard, size, position, bg_colour=assets.MacColoursDark.side_bar_inactive_colour, is_visible=True):
-        super().__init__(window, (size[0]*motherboard.slot_resolution, size[1]*motherboard.slot_resolution), position, bg_colour, is_visible)
+    def __init__(self, master: GUIDisplay.Layer, motherboard: Motherboard, size: tuple, position: tuple, bg_colour=assets.MacColoursDark.side_bar_inactive_colour, is_visible=True):
+        super().__init__(master, (size[0]*motherboard.slot_resolution, size[1]*motherboard.slot_resolution), position, bg_colour, is_visible)
 
         self.motherboard = motherboard
 
@@ -122,7 +121,7 @@ class Daughterboard(GUIDisplay.Sublayer):
 
 class Component(GUIUtils.Button):
 
-    def __init__(self, daughterboard, size, position, fill_colour, logic_element, is_visible=True):
+    def __init__(self, daughterboard: Daughterboard, size: tuple, position: tuple, fill_colour: tuple, logic_element: LogicElements.Gate, is_visible=True):
         super().__init__(daughterboard, (size[0]*daughterboard.motherboard.slot_resolution, size[1]*daughterboard.motherboard.slot_resolution), (position[0]*daughterboard.motherboard.slot_resolution, position[1]*daughterboard.motherboard.slot_resolution), button_id=GUIUtils.Button.get_id(), fill_colour=fill_colour, is_visible=is_visible)
 
         self.logic_element = logic_element
@@ -228,7 +227,7 @@ class Component(GUIUtils.Button):
 
 class Inlet(GUIUtils.Button):
 
-    def __init__(self, component, position, inlet_id, size=(16, 16)):
+    def __init__(self, component: Component, position: tuple, inlet_id: int, size=(16, 16)):
         super().__init__(component.daughterboard, size, position, GUIUtils.Button.get_id(), fill_colour=component.fill_colour, is_visible=True)
 
         self.component = component
@@ -253,7 +252,7 @@ class Inlet(GUIUtils.Button):
 
 class Outlet(GUIUtils.Button):
 
-    def __init__(self, component, position, outlet_id, size=(32, 32)):
+    def __init__(self, component: Component, position: tuple, outlet_id: int, size=(32, 32)):
         super().__init__(component.daughterboard, size, position, GUIUtils.Button.get_id(), fill_colour=component.fill_colour, is_visible=True)
 
         self.component = component

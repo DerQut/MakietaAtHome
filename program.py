@@ -18,6 +18,8 @@ pygame.display.init()
 pygame.font.init()
 
 main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF | RESIZABLE, resolution=(1280, 720))
+pygame.display.set_icon(pygame.image.load("assets/hw.png").convert_alpha())
+pygame.display.set_caption("Makieta@Home")
 main_board = PCB.Motherboard(8, 8, 13, 40)
 
 bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920*2, 1080), (480, 0), Colours.black, y_scroll_speed=75, x_scroll_speed=0)
@@ -133,7 +135,7 @@ def fill_output_layer():
                 rect_width = obj.rect.width / len(main_board.saved_outs)
                 rect_height = 5
                 rect_left = j*rect_width + obj.rect.left
-                rect_top = obj.rect.bottom - main_board.saved_outs[j][i] * (obj.rect.height - 5)
+                rect_top = obj.rect.bottom - main_board.saved_outs[j][i] * (obj.rect.height - 5)-5
                 prev_rect = rect
                 rect = pygame.rect.Rect((int(rect_left), rect_top), (math.ceil(rect_width), rect_height))
                 pygame.draw.rect(output_layer.surface, main_board.outs[i].masters[0].on_colour, rect)

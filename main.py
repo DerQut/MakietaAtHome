@@ -2,7 +2,7 @@ import pygame
 
 if __name__ == '__main__':
 
-    from program import *
+    import program
 
-    main_window.run()
+    program.main_window.run()
 

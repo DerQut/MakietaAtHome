@@ -5,7 +5,7 @@ class Gate:
 
     all_gates = []
 
-    def __init__(self, max_inputs, is_inverted=False):
+    def __init__(self, max_inputs: int, is_inverted=False):
         self.textures = []
         self.max_inputs = max_inputs
         self.inputs = []
@@ -65,7 +65,7 @@ class Gate:
 
 class ANDGate(Gate):
 
-    def __init__(self, max_inputs, is_inverted):
+    def __init__(self, max_inputs: int, is_inverted: bool):
         super().__init__(max_inputs, is_inverted)
         self.textures = [pygame.image.load("assets/and.png").convert_alpha(), pygame.image.load("assets/nand.png")]
 
@@ -83,7 +83,7 @@ class ANDGate(Gate):
 
 class ORGate(Gate):
 
-    def __init__(self, max_inputs, is_inverted=False):
+    def __init__(self, max_inputs: int, is_inverted=False):
         super().__init__(max_inputs, is_inverted)
         self.textures = [pygame.image.load("assets/or.png").convert_alpha(), pygame.image.load("assets/nor.png")]
 
@@ -137,7 +137,7 @@ class Pin(Buffer):
 
 class FlipFlop(Gate):
 
-    def __init__(self, inputs, is_rising_edge=True):
+    def __init__(self, inputs: int, is_rising_edge=True):
         super().__init__(max_inputs=inputs, is_inverted=False)
 
         self.is_rising_edge = is_rising_edge
