@@ -18,14 +18,14 @@ pygame.display.init()
 pygame.font.init()
 
 main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF | RESIZABLE, resolution=(1280, 720))
-pygame.display.set_icon(pygame.image.load("assets/hw.png").convert_alpha())
+pygame.display.set_icon(pygame.image.load("assets/logo.png").convert_alpha())
 pygame.display.set_caption("Makieta@Home")
 main_board = PCB.Motherboard(8, 8, 13, 40)
 
 bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920*2, 1080), (480, 0), Colours.black, y_scroll_speed=75, x_scroll_speed=0)
-circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board.png")
-circuit_board.texture = pygame.transform.scale2x(circuit_board.texture)
-circuit_board.can_move = False
+# circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board.png")
+# circuit_board.texture = pygame.transform.scale2x(circuit_board.texture)
+# circuit_board.can_move = False
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
 
