@@ -217,8 +217,8 @@ def get_jk_daughterboard(is_visible=False):
     while i < 2:
         new = PCB.Component(daughterboard, (2, 4), (6, 1 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
         new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (3, 4), (16, 1 + i * 4), Colours.white, LogicElements.JKFlipFlop())
-        new = PCB.Component(daughterboard, (3, 4), (16, 12 + i * 4), Colours.white, LogicElements.JKFlipFlop())
+        new = PCB.Component(daughterboard, (3, 5), (16, 0 + i * 5), Colours.white, LogicElements.JKFlipFlop())
+        new = PCB.Component(daughterboard, (3, 5), (16, 11 + i * 5), Colours.white, LogicElements.JKFlipFlop())
         i = i + 1
 
 

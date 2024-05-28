@@ -161,17 +161,23 @@ class FlipFlop(Gate):
 class DFlipFlop(FlipFlop):
 
     def __init__(self, is_rising_edge=True):
-        super().__init__(2, is_rising_edge)
+        super().__init__(4, is_rising_edge)
 
         self.textures = [pygame.image.load("assets/D.png"), pygame.image.load("assets/D.png")]
 
     def calculate_output(self):
         if self.check_clock():
 
-            if self.inputs[0] is None:
+            if self.inputs[1] is None:
                 self.internal_state = False
             else:
-                self.internal_state = self.inputs[0].external_state
+                self.internal_state = self.inputs[1].external_state
+
+        if isinstance(self.inputs[0], Gate) and not self.inputs[0].external_state:
+            self.internal_state = False
+
+        if isinstance(self.inputs[3], Gate) and not self.inputs[3].external_state:
+            self.internal_state = True
 
         self.change_previous_clock()
 
@@ -179,16 +185,22 @@ class DFlipFlop(FlipFlop):
 class JKFlipFlop(FlipFlop):
 
     def __init__(self, is_rising_edge=True):
-        super().__init__(3, is_rising_edge)
+        super().__init__(5, is_rising_edge)
 
         self.textures = [pygame.image.load("assets/JK.png"), pygame.image.load("assets/JK.png")]
 
     def calculate_output(self):
         if self.check_clock():
 
-            if not self.internal_state and isinstance(self.inputs[0], Gate) and self.inputs[0].external_state:
+            if not self.internal_state and isinstance(self.inputs[1], Gate) and self.inputs[1].external_state:
                 self.internal_state = True
-            elif self.internal_state and isinstance(self.inputs[2], Gate) and self.inputs[2].external_state:
+            elif self.internal_state and isinstance(self.inputs[3], Gate) and self.inputs[3].external_state:
                 self.internal_state = False
+
+        if isinstance(self.inputs[0], Gate) and not self.inputs[0].external_state:
+            self.internal_state = False
+
+        if isinstance(self.inputs[4], Gate) and not self.inputs[4].external_state:
+            self.internal_state = True
 
         self.change_previous_clock()
