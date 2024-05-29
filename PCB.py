@@ -24,7 +24,7 @@ class Motherboard:
         self.coms = []
 
         self.slot_resolution = slot_resolution
-        self.tick_tempo = 30
+        self.tick_tempo = 15
         self.current_tick = 0
 
         self.programming = []
@@ -240,9 +240,9 @@ class Inlet(GUIUtils.Button):
         super().draw()
 
         if self.inlet_id == 2 and isinstance(self.component.logic_element, LogicElements.FlipFlop):
-            point1 = (self.position[0]+2*self.size[0], self.position[1]-0.5*self.daughterboard.motherboard.slot_resolution)
-            point2 = (self.position[0]+2*self.size[0]+0.66*self.daughterboard.motherboard.slot_resolution, self.position[1]+0.5*self.size[1])
-            point3 = (self.position[0]+2*self.size[0], self.position[1]+0.5*self.daughterboard.motherboard.slot_resolution+self.size[1])
+            point1 = (self.position[0]+2*self.size[0], self.position[1]-0.25*self.daughterboard.motherboard.slot_resolution)
+            point2 = (self.position[0]+2*self.size[0]+0.33*self.daughterboard.motherboard.slot_resolution, self.position[1]+0.5*self.size[1])
+            point3 = (self.position[0]+2*self.size[0], self.position[1]+0.25*self.daughterboard.motherboard.slot_resolution+self.size[1])
             pygame.draw.polygon(self.daughterboard.surface, self.fill_colour, (point1, point2, point3), width=5)
 
             if not self.component.logic_element.is_rising_edge:

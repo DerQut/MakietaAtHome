@@ -144,14 +144,14 @@ class FlipFlop(Gate):
         self.previous_clock = False
 
     def change_previous_clock(self):
-        if isinstance(self.inputs[1], Gate):
-            self.previous_clock = self.inputs[1].external_state
+        if isinstance(self.inputs[2], Gate):
+            self.previous_clock = self.inputs[2].external_state
         else:
             self.previous_clock = False
 
     def check_clock(self):
-        if isinstance(self.inputs[1], Gate):
-            if self.inputs[1].external_state != self.previous_clock and self.inputs[1].external_state == self.is_rising_edge:
+        if isinstance(self.inputs[2], Gate):
+            if self.inputs[2].external_state != self.previous_clock and self.inputs[2].external_state == self.is_rising_edge:
                 return True
             else:
                 return False
@@ -204,3 +204,9 @@ class JKFlipFlop(FlipFlop):
             self.internal_state = True
 
         self.change_previous_clock()
+
+
+class HiddenBuffer(Buffer):
+
+    def disconnect(self, port):
+        return

@@ -17,7 +17,7 @@ import LogicElements
 pygame.display.init()
 pygame.font.init()
 
-main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF | RESIZABLE, resolution=(1280, 720))
+main_window = GUIDisplay.Window(fps_cap=30, flags=DOUBLEBUF | RESIZABLE, resolution=(1280, 720))
 pygame.display.set_icon(pygame.image.load("assets/logo.png").convert_alpha())
 pygame.display.set_caption("Makieta@Home")
 main_board = PCB.Motherboard(8, 8, 13, 40)
@@ -106,7 +106,6 @@ def pre_fill_output_layer():
     i = 0
     for out in main_board.outs:
         new2 = GUIUtils.LabelledButton(output_layer, (90, 80), (10, y+25), 20+i, 24, MacColoursDark.side_bar_colour, "assets/SF-Mono-Light.otf", "OUT"+str(i), Colours.white)
-        print(new2.button_id)
         new3 = GUIObjects.Rect(output_layer, (output_layer.size[0]-20-111, 80), (120, y+25), MacColours.side_bar_inactive_colour)
         y = y + 100
         i = i + 1
@@ -217,8 +216,15 @@ def get_jk_daughterboard(is_visible=False):
     while i < 2:
         new = PCB.Component(daughterboard, (2, 4), (6, 1 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
         new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (3, 5), (16, 0 + i * 5), Colours.white, LogicElements.JKFlipFlop())
-        new = PCB.Component(daughterboard, (3, 5), (16, 11 + i * 5), Colours.white, LogicElements.JKFlipFlop())
+
+        not1 = PCB.Component(daughterboard, (1, 1), (18, 3 + i * 5), Colours.white, LogicElements.HiddenBuffer(is_inverted=True), is_visible=True)
+        jk1 = PCB.Component(daughterboard, (3, 5), (16, 0 + i * 5), Colours.white, LogicElements.JKFlipFlop(is_rising_edge=False))
+        not2 = PCB.Component(daughterboard, (1, 1), (18, 14 + i * 5), Colours.white, LogicElements.HiddenBuffer(is_inverted=True), is_visible=True)
+        jk2 = PCB.Component(daughterboard, (3, 5), (16, 11 + i * 5), Colours.white, LogicElements.JKFlipFlop(is_rising_edge=False))
+
+        jk1.logic_element.connect(not1.logic_element, 0)
+        jk2.logic_element.connect(not2.logic_element, 0)
+
         i = i + 1
 
 
@@ -260,7 +266,6 @@ def get_daughterboard(id):
 
 
 def button_action(button_id):
-    print(button_id)
 
     global selected_output
 
@@ -332,7 +337,7 @@ def loop_action(mouse_pos):
                             pygame.draw.line(daughterboard.surface, master.fill_colour, (mouse_pos[0]-daughterboard.position[0], mouse_pos[1]-daughterboard.position[1]), (master.outlets[0].position[0] + 0.5*master.outlets[0].size[0], master.outlets[0].position[1] + 0.5*master.outlets[0].size[1]), 3)
 
                 for inlet in component.inlets:
-                    if component.logic_element.inputs[inlet.inlet_id] is not None:
+                    if component.logic_element.inputs[inlet.inlet_id] is not None and not isinstance(component.logic_element, LogicElements.HiddenBuffer):
                         for master in component.logic_element.inputs[inlet.inlet_id].masters:
                             if master.daughterboard == component.daughterboard and master.daughterboard.is_visible:
                                 pygame.draw.line(daughterboard.surface, master.fill_colour, (inlet.position[0]+0.5*inlet.size[0], inlet.position[1]+0.5*inlet.size[1]), (master.outlets[0].position[0] + 0.5*master.outlets[0].size[0], master.outlets[0].position[1] + 0.5*master.outlets[0].size[1]), width=3)
