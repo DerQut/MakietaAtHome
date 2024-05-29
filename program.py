@@ -152,25 +152,24 @@ def get_not_daughterboard(is_visible=False):
 
     x_pos = 0.5*(1920-480 - 24*main_board.slot_resolution) + bg_layer.position[0]
     if not len(main_board.daughterboards):
-        y_pos = 0.33 * (1080 - 21 * main_board.slot_resolution)
+        y_pos = 0.33 * (1080 - 20 * main_board.slot_resolution)
     else:
-        y_pos = main_board.daughterboards[len(main_board.daughterboards) - 1].position[1] + 22 * main_board.slot_resolution
+        y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + main_board.daughterboards[len(main_board.daughterboards)-1].size[1] + main_board.slot_resolution
 
     padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
-    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 21*main_board.slot_resolution), is_visible=False)
+    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 20*main_board.slot_resolution), is_visible=False)
 
-    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
+    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 20), (x_pos, y_pos), is_visible=is_visible)
 
     i = 0
-    while i < 3:
+    while i < 6:
         new = PCB.Component(daughterboard, (2, 2), (6, 4 + i*2), Colours.white, LogicElements.Buffer(True))
-        new = PCB.Component(daughterboard, (2, 2), (6, 11 + i * 2), Colours.white, LogicElements.Buffer(True))
         i = i + 1
 
     i = 0
     while i < 4:
         new = PCB.Component(daughterboard, (2, 2), (16, 1+i*2), Colours.white, LogicElements.ORGate(2, True))
-        new = PCB.Component(daughterboard, (2, 2), (16, 12 + i * 2), Colours.white, LogicElements.ORGate(2, True))
+        new = PCB.Component(daughterboard, (2, 2), (16, 11 + i * 2), Colours.white, LogicElements.ORGate(2, True))
         i = i + 1
 
 
@@ -180,7 +179,7 @@ def get_nand_daughterboard(is_visible=False):
     if not len(main_board.daughterboards):
         y_pos = 0.33 * (1920-480 - 21 * main_board.slot_resolution)
     else:
-        y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + 22*main_board.slot_resolution
+        y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + main_board.daughterboards[len(main_board.daughterboards)-1].size[1] + main_board.slot_resolution
 
     padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
     padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 21*main_board.slot_resolution), is_visible=False)
@@ -202,28 +201,31 @@ def get_jk_daughterboard(is_visible=False):
     if not len(main_board.daughterboards):
         y_pos = 0.33 * (1080 - 21 * main_board.slot_resolution)
     else:
-        y_pos = main_board.daughterboards[len(main_board.daughterboards) - 1].position[
-                    1] + 22 * main_board.slot_resolution
+        y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + main_board.daughterboards[len(main_board.daughterboards)-1].size[1] + main_board.slot_resolution
 
-    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution),
-                              (0, y_pos - 2 * main_board.slot_resolution), is_visible=False)
-    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution),
-                              (0, y_pos + 21 * main_board.slot_resolution), is_visible=False)
+    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution), (0, y_pos - 2 * main_board.slot_resolution), is_visible=False)
+    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution), (0, y_pos + 21 * main_board.slot_resolution), is_visible=False)
 
-    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
+    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 23), (x_pos, y_pos), is_visible=is_visible)
 
     i = 0
     while i < 2:
-        new = PCB.Component(daughterboard, (2, 4), (6, 1 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        not1 = PCB.Component(daughterboard, (1, 1), (8, 4 + i * 5), Colours.white, LogicElements.HiddenBuffer(is_inverted=True), is_visible=True)
+        d1 = PCB.Component(daughterboard, (3, 5), (6, 1 + i * 5), Colours.white, LogicElements.DFlipFlop(is_rising_edge=False))
+        not2 = PCB.Component(daughterboard, (1, 1), (8, 15 + i * 5), Colours.white, LogicElements.HiddenBuffer(is_inverted=True), is_visible=True)
+        d2 = PCB.Component(daughterboard, (3, 5), (6, 12 + i * 5), Colours.white, LogicElements.DFlipFlop(is_rising_edge=False))
 
-        not1 = PCB.Component(daughterboard, (1, 1), (18, 3 + i * 5), Colours.white, LogicElements.HiddenBuffer(is_inverted=True), is_visible=True)
-        jk1 = PCB.Component(daughterboard, (3, 5), (16, 0 + i * 5), Colours.white, LogicElements.JKFlipFlop(is_rising_edge=False))
-        not2 = PCB.Component(daughterboard, (1, 1), (18, 14 + i * 5), Colours.white, LogicElements.HiddenBuffer(is_inverted=True), is_visible=True)
-        jk2 = PCB.Component(daughterboard, (3, 5), (16, 11 + i * 5), Colours.white, LogicElements.JKFlipFlop(is_rising_edge=False))
+        d1.logic_element.connect(not1.logic_element, 0)
+        d2.logic_element.connect(not2.logic_element, 0)
 
-        jk1.logic_element.connect(not1.logic_element, 0)
-        jk2.logic_element.connect(not2.logic_element, 0)
+
+        not3 = PCB.Component(daughterboard, (1, 1), (18, 4 + i * 5), Colours.white, LogicElements.HiddenBuffer(is_inverted=True), is_visible=True)
+        jk1 = PCB.Component(daughterboard, (3, 5), (16, 1 + i * 5), Colours.white, LogicElements.JKFlipFlop(is_rising_edge=False))
+        not4 = PCB.Component(daughterboard, (1, 1), (18, 15 + i * 5), Colours.white, LogicElements.HiddenBuffer(is_inverted=True), is_visible=True)
+        jk2 = PCB.Component(daughterboard, (3, 5), (16, 12 + i * 5), Colours.white, LogicElements.JKFlipFlop(is_rising_edge=False))
+
+        jk1.logic_element.connect(not3.logic_element, 0)
+        jk2.logic_element.connect(not4.logic_element, 0)
 
         i = i + 1
 
@@ -261,8 +263,6 @@ def get_daughterboard(id):
         get_nand_daughterboard(True)
     elif id == 3:
         get_jk_daughterboard(True)
-    elif id == 4:
-        get_d_daughterboard(True)
 
 
 def button_action(button_id):
@@ -275,7 +275,7 @@ def button_action(button_id):
                 if element.button_id == button_id:
 
                     if button_id == 0:
-                        get_daughterboard(parser.get_value("Nowa makieta", "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- NAND + JK\n4- NAND + D", 0))
+                        get_daughterboard(parser.get_value("Nowa makieta", "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- D + JK", 0))
 
                     elif button_id == 1:
                         main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
