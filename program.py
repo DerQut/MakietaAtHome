@@ -29,10 +29,10 @@ bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920*2, 1080), (480, 0), Colo
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
 
-file_label = GUIObjects.Text(side_bar, 24, (20, 20), MacColoursDark.side_bar_colour, "assets/SFNSDisplay-Thin.otf", "Plik: _PRZEBIEG.txt")
+file_label = GUIObjects.Text(side_bar, 24, (20, 20), Colours.white, "assets/SFNSDisplay-Thin.otf", "Plik: _PRZEBIEG.txt")
 file_reload = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480-20-100, 20), 1, 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Odczyt")
 
-speed_label = GUIObjects.Text(side_bar, 24, (20, 66), MacColoursDark.side_bar_colour, "assets/SFNSDisplay-Thin.otf", "Okres sygnału wejściowego:")
+speed_label = GUIObjects.Text(side_bar, 24, (20, 66), Colours.white, "assets/SFNSDisplay-Thin.otf", "Okres sygnału wejściowego:")
 speed_change_button = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480 - 20 - 100, 66), 2, 24, Colours.black, "assets/SFNSDisplay-Thin.otf", str(main_board.tick_tempo), fill_colour=Colours.white)
 
 new_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20-64-10), 0, 24, Colours.white, "assets/SFPRODISPLAYMEDIUM.OTF", "Nowa makieta", fill_colour=MacColoursDark.side_bar_colour)
