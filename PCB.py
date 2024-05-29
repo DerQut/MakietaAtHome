@@ -206,6 +206,12 @@ class Component(GUIUtils.Button):
         self.on_colour = new_colour
         self.off_colour = (self.on_colour[0] * 0.5, self.on_colour[1] * 0.5, self.on_colour[2] * 0.5)
 
+        for component in self.daughterboard.components:
+            if isinstance(component.logic_element, LogicElements.HiddenBuffer) and component.logic_element.inputs[0].masters[0] == self:
+                component.on_colour = new_colour
+                component.off_colour = (self.on_colour[0] * 0.5, self.on_colour[1] * 0.5, self.on_colour[2] * 0.5)
+                component.update_io_colours()
+
         self.update_io_colours()
 
     def change_parameter(self, parameter):
