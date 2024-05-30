@@ -28,6 +28,7 @@ bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920*2, 1080), (480, 0), Colo
 # circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board.png")
 # circuit_board.texture = pygame.transform.scale2x(circuit_board.texture)
 # circuit_board.can_move = False
+name_label = GUIObjects.Text(bg_layer, 24, (20, 20), Colours.white, resource_path("SFNSDisplay-Thin.otf"), "Marcel Chołodecki 275818 IEA W12N").can_move = False
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
 
