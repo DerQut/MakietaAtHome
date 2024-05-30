@@ -31,6 +31,8 @@ class Motherboard:
 
         self.saved_outs = []
 
+        self.next_db_id = 0
+
         while len(self.ins) < self.in_count:
             self.ins.append(LogicElements.Pin(True, False, True))
 
@@ -51,6 +53,10 @@ class Motherboard:
     def program(self, sequence):
         self.programming = sequence
         self.current_tick = self.tick_tempo * len(self.programming)
+
+    def give_db_id(self):
+        self.next_db_id = self.next_db_id + 1
+        return self.next_db_id - 1
 
     def send_programming(self):
         if self.current_tick >= self.tick_tempo * len(self.programming):
@@ -82,6 +88,9 @@ class Daughterboard(GUIDisplay.Sublayer):
         self.motherboard = motherboard
 
         self.components = []
+        self.paddings = []
+
+        self.db_id = motherboard.give_db_id()
 
         i = 0
         while i < self.motherboard.in_count:
@@ -117,6 +126,35 @@ class Daughterboard(GUIDisplay.Sublayer):
                 component.texture = pygame.transform.scale(component.sprite_file, (min(pixel_size[0], pixel_size[1]), min(pixel_size[0], pixel_size[1])))
             else:
                 component.texture = pygame.transform.scale(component.sprite_file, (pixel_size[0], pixel_size[1]))
+
+    def delete(self):
+
+        for component in self.components:
+            for out in self.motherboard.outs:
+                if component.logic_element in out.inputs:
+                    out.disconnect(0)
+                    out.internal_state = False
+            for com in self.motherboard.coms:
+                if component in com.inputs:
+                    com.disconnect(0)
+                    com.internal_state = False
+
+            component.delete()
+
+        for padding in self.paddings:
+            self.paddings.remove(padding)
+            self.master.gui_objects.remove(padding)
+        self.motherboard.daughterboards.remove(self)
+        self.window.all_layers.remove(self)
+        self.master.sublayers.remove(self)
+        self.master.gui_objects.remove(self)
+
+        for daughterboard in self.motherboard.daughterboards:
+            if daughterboard.db_id > self.db_id:
+                daughterboard.position = (daughterboard.position[0], daughterboard.position[1] - self.size[1])
+                for padding in daughterboard.paddings:
+                    padding.position = (padding.position[0], padding.position[1] - self.size[1])
+
 
 
 class Component(GUIUtils.Button):
@@ -180,7 +218,11 @@ class Component(GUIUtils.Button):
         self.layer.surface.blit(self.texture, (self.position[0]+border_thickness, self.position[1]+0.5*(self.size[1]-self.texture.get_height())))
 
     def delete(self):
-        self.logic_element.delete()
+        if (not isinstance(self.logic_element, LogicElements.Pin)) and self.logic_element not in self.daughterboard.motherboard.coms:
+            self.logic_element.delete()
+        else:
+            self.logic_element.disconnect(0)
+
         self.daughterboard.components.remove(self)
         self.daughterboard.gui_objects.remove(self)
 

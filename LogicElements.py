@@ -44,13 +44,19 @@ class Gate:
         self.inputs[port] = None
 
     def delete(self):
+        i = 0
+        while i < len(self.inputs):
+            self.disconnect(i)
+            i = i + 1
+
         for gate in Gate.all_gates:
             i = 0
             while i < gate.max_inputs:
-                if gate.inputs[i] == self:
+                if gate.inputs[i] == self.masters:
                     gate.disconnect(i)
                 i = i + 1
-        Gate.all_gates.remove(self)
+        if self in Gate.all_gates:
+            Gate.all_gates.remove(self)
 
     @classmethod
     def in_tick(cls):

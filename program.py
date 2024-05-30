@@ -156,10 +156,13 @@ def get_not_daughterboard(is_visible=False):
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + main_board.daughterboards[len(main_board.daughterboards)-1].size[1] + main_board.slot_resolution
 
-    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
-    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 20*main_board.slot_resolution), is_visible=False)
+    padding1 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
+    padding2 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 20*main_board.slot_resolution), is_visible=False)
 
     daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 20), (x_pos, y_pos), is_visible=is_visible)
+
+    daughterboard.paddings.append(padding1)
+    daughterboard.paddings.append(padding2)
 
     i = 0
     while i < 6:
@@ -181,10 +184,14 @@ def get_nand_daughterboard(is_visible=False):
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + main_board.daughterboards[len(main_board.daughterboards)-1].size[1] + main_board.slot_resolution
 
-    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
-    padding = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 21*main_board.slot_resolution), is_visible=False)
+    padding1 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
+    padding2 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 21*main_board.slot_resolution), is_visible=False)
 
     daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
+
+    daughterboard.paddings.append(padding1)
+    daughterboard.paddings.append(padding2)
+
 
     i = 0
     while i < 2:
@@ -203,10 +210,13 @@ def get_jk_daughterboard(is_visible=False):
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + main_board.daughterboards[len(main_board.daughterboards)-1].size[1] + main_board.slot_resolution
 
-    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution), (0, y_pos - 2 * main_board.slot_resolution), is_visible=False)
-    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution), (0, y_pos + 21 * main_board.slot_resolution), is_visible=False)
+    padding1 = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution), (0, y_pos - 2 * main_board.slot_resolution), is_visible=False)
+    padding2 = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution), (0, y_pos + 21 * main_board.slot_resolution), is_visible=False)
 
     daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 23), (x_pos, y_pos), is_visible=is_visible)
+
+    daughterboard.paddings.append(padding1)
+    daughterboard.paddings.append(padding2)
 
     i = 0
     while i < 2:
@@ -227,31 +237,6 @@ def get_jk_daughterboard(is_visible=False):
         jk1.logic_element.connect(not3.logic_element, 0)
         jk2.logic_element.connect(not4.logic_element, 0)
 
-        i = i + 1
-
-
-def get_d_daughterboard(is_visible=False):
-
-    x_pos = 0.5 * (1920-480 - 24 * main_board.slot_resolution) + 480
-    if not len(main_board.daughterboards):
-        y_pos = 0.33 * (1080 - 21 * main_board.slot_resolution)
-    else:
-        y_pos = main_board.daughterboards[len(main_board.daughterboards) - 1].position[
-                    1] + 22 * main_board.slot_resolution
-
-    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution),
-                              (0, y_pos - 2 * main_board.slot_resolution), is_visible=False)
-    padding = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution),
-                              (0, y_pos + 21 * main_board.slot_resolution), is_visible=False)
-
-    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
-
-    i = 0
-    while i < 2:
-        new = PCB.Component(daughterboard, (2, 4), (6, 1 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (3, 4), (16, 1 + i * 4), Colours.white, LogicElements.DFlipFlop())
-        new = PCB.Component(daughterboard, (3, 4), (16, 12 + i * 4), Colours.white, LogicElements.DFlipFlop())
         i = i + 1
 
 
@@ -335,6 +320,7 @@ def loop_action(mouse_pos):
                     for master in selected_output.masters:
                         if master.daughterboard.is_visible:
                             pygame.draw.line(daughterboard.surface, master.fill_colour, (mouse_pos[0]-daughterboard.position[0], mouse_pos[1]-daughterboard.position[1]), (master.outlets[0].position[0] + 0.5*master.outlets[0].size[0], master.outlets[0].position[1] + 0.5*master.outlets[0].size[1]), 3)
+                            break
 
                 for inlet in component.inlets:
                     if component.logic_element.inputs[inlet.inlet_id] is not None and not isinstance(component.logic_element, LogicElements.HiddenBuffer):
@@ -359,7 +345,14 @@ def event_action(events, mouse_pos):
                             if component.mouse_check(mouse_pos):
                                 component.change_parameter(current_tool)
                                 return 0
-                        daughterboard.bg_colour = parser.get_colour(daughterboard.bg_colour)
+                        chosen_option = parser.get_value("Edycja makiety", "Wybierz opcję:\n1: Zmiana koloru PCB\n2: Usunięcie makiety", 0)
+                        if chosen_option == 1:
+                            daughterboard.bg_colour = parser.get_colour(daughterboard.bg_colour)
+                        elif chosen_option == 2:
+                            daughterboard.delete()
+                            for daughterboard in main_board.daughterboards:
+                                for component in daughterboard.components:
+                                    component.update_io_colours()
                         return 1
 
         elif event.type == pygame.KEYDOWN:
