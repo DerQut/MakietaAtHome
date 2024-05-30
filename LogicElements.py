@@ -19,7 +19,7 @@ class Gate:
         self.external_state = is_inverted
         self.is_inverted = is_inverted
 
-        self.textures = [pygame.image.load(assets.resource_path("none.png")), pygame.image.load(assets.resource_path("none.png"))]
+        self.textures = [pygame.image.load(assets.resource_path("assets/none.png")), pygame.image.load(assets.resource_path("assets/none.png"))]
 
         Gate.all_gates.append(self)
 
@@ -75,7 +75,7 @@ class ANDGate(Gate):
 
     def __init__(self, max_inputs: int, is_inverted: bool):
         super().__init__(max_inputs, is_inverted)
-        self.textures = [pygame.image.load(assets.resource_path("and.png")).convert_alpha(), pygame.image.load(assets.resource_path("nand.png"))]
+        self.textures = [pygame.image.load(assets.resource_path("assets/and.png")).convert_alpha(), pygame.image.load(assets.resource_path("assets/nand.png"))]
 
     def calculate_output(self):
         if self.check_for_any_connections():
@@ -93,7 +93,7 @@ class ORGate(Gate):
 
     def __init__(self, max_inputs: int, is_inverted=False):
         super().__init__(max_inputs, is_inverted)
-        self.textures = [pygame.image.load(assets.resource_path("or.png")).convert_alpha(), pygame.image.load(assets.resource_path("nor.png"))]
+        self.textures = [pygame.image.load(assets.resource_path("assets/or.png")).convert_alpha(), pygame.image.load(assets.resource_path("assets/nor.png"))]
 
     def calculate_output(self):
         self.internal_state = self.is_inverted
@@ -110,7 +110,7 @@ class Buffer(Gate):
 
     def __init__(self, is_inverted=False):
         super().__init__(1, is_inverted)
-        self.textures = [pygame.image.load(assets.resource_path("buffer.png")).convert_alpha(), pygame.image.load(assets.resource_path("not.png"))]
+        self.textures = [pygame.image.load(assets.resource_path("assets/buffer.png")).convert_alpha(), pygame.image.load(assets.resource_path("assets/not.png"))]
 
     def calculate_output(self):
         if self.check_for_any_connections():
@@ -132,7 +132,7 @@ class Pin(Buffer):
         self.has_output = has_output
         self.has_input = has_input
 
-        self.textures = [pygame.image.load(assets.resource_path("none.png")), pygame.image.load(assets.resource_path("none.png"))]
+        self.textures = [pygame.image.load(assets.resource_path("assets/none.png")), pygame.image.load(assets.resource_path("assets/none.png"))]
     
     def connect(self, other, port):
         if self.has_output:
@@ -171,7 +171,7 @@ class DFlipFlop(FlipFlop):
     def __init__(self, is_rising_edge=True):
         super().__init__(4, is_rising_edge)
 
-        self.textures = [pygame.image.load(assets.resource_path("D.png")), pygame.image.load(assets.resource_path("D.png"))]
+        self.textures = [pygame.image.load(assets.resource_path("assets/D.png")), pygame.image.load(assets.resource_path("assets/D.png"))]
 
     def calculate_output(self):
         if self.check_clock():
@@ -195,7 +195,7 @@ class JKFlipFlop(FlipFlop):
     def __init__(self, is_rising_edge=True):
         super().__init__(5, is_rising_edge)
 
-        self.textures = [pygame.image.load(assets.resource_path("JK.png")), pygame.image.load(assets.resource_path("JK.png"))]
+        self.textures = [pygame.image.load(assets.resource_path("assets/JK.png")), pygame.image.load(assets.resource_path("assets/JK.png"))]
 
     def calculate_output(self):
         if self.check_clock():

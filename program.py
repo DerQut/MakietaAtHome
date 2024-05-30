@@ -20,7 +20,7 @@ pygame.display.init()
 pygame.font.init()
 
 main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF | RESIZABLE, resolution=(1280, 720))
-pygame.display.set_icon(pygame.image.load(resource_path("logo.png")).convert_alpha())
+pygame.display.set_icon(pygame.image.load(resource_path("assets/logo.png")).convert_alpha())
 pygame.display.set_caption("Makieta@Home")
 main_board = PCB.Motherboard(8, 8, 13, 40)
 
@@ -28,18 +28,18 @@ bg_layer = GUIDisplay.ScrollingLayer(main_window, (1920*2, 1080), (480, 0), Colo
 # circuit_board = GUIObjects.Image(bg_layer, (0, 0), "assets/circuit_board.png")
 # circuit_board.texture = pygame.transform.scale2x(circuit_board.texture)
 # circuit_board.can_move = False
-name_label = GUIObjects.Text(bg_layer, 24, (20, 20), Colours.white, resource_path("SFNSDisplay-Thin.otf"), "Marcel Chołodecki 275818 IEA W12N").can_move = False
+name_label = GUIObjects.Text(bg_layer, 24, (20, 20), Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Marcel Chołodecki 275818 IEA W12N").can_move = False
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
 
-file_label = GUIObjects.Text(side_bar, 24, (20, 20), Colours.white, resource_path("SFNSDisplay-Thin.otf"), "Plik: _PRZEBIEG.txt")
-file_reload = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480-20-100, 20), 1, 24, Colours.white, resource_path("SFPRODISPLAYMEDIUM.OTF"), "Odczyt")
+file_label = GUIObjects.Text(side_bar, 24, (20, 20), Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Plik: _PRZEBIEG.txt")
+file_reload = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480-20-100, 20), 1, 24, Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Odczyt")
 
-speed_label = GUIObjects.Text(side_bar, 24, (20, 66), Colours.white, resource_path("SFNSDisplay-Thin.otf"), "Okres sygnału wejściowego:")
-speed_change_button = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480 - 20 - 100, 66), 2, 24, Colours.black, resource_path("SFNSDisplay-Thin.otf"), str(main_board.tick_tempo), fill_colour=Colours.white)
+speed_label = GUIObjects.Text(side_bar, 24, (20, 66), Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Okres sygnału wejściowego:")
+speed_change_button = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480 - 20 - 100, 66), 2, 24, Colours.black, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), str(main_board.tick_tempo), fill_colour=Colours.white)
 
-new_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20-64-10), 0, 24, Colours.white, resource_path("SFPRODISPLAYMEDIUM.OTF"), "Nowa makieta", fill_colour=MacColoursDark.side_bar_colour)
-run_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20), 3, 24, Colours.white, resource_path("SFPRODISPLAYMEDIUM.OTF"), "Uruchom")
+new_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20-64-10), 0, 24, Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Nowa makieta", fill_colour=MacColoursDark.side_bar_colour)
+run_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20), 3, 24, Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Uruchom")
 
 main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
 
@@ -48,9 +48,9 @@ input_layer = GUIDisplay.ScrollingLayer(main_window, (440, 240), (20, 122+55), C
 
 input_layer_overlay = GUIDisplay.Layer(main_window, (440, 55), (20, 122), Colours.white)
 
-id_label = GUIObjects.Text(input_layer_overlay, 24, (20, 10), Colours.black, resource_path("SF-Mono-Light.otf"), "id")
-binary_label = GUIObjects.Text(input_layer_overlay, 24, (input_layer.size[0] - 140, 10), Colours.black, resource_path("SF-Mono-Light.otf"), "Binary")
-decimal_label = GUIObjects.Text(input_layer_overlay, 24, (120, 10), Colours.black, resource_path("SF-Mono-Light.otf"), "Decimal")
+id_label = GUIObjects.Text(input_layer_overlay, 24, (20, 10), Colours.black, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), "id")
+binary_label = GUIObjects.Text(input_layer_overlay, 24, (input_layer.size[0] - 140, 10), Colours.black, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), "Binary")
+decimal_label = GUIObjects.Text(input_layer_overlay, 24, (120, 10), Colours.black, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), "Decimal")
 
 underline = GUIObjects.Rect(input_layer_overlay, (420, 1), (10, 54), MacColoursDark.side_bar_colour)
 vertical1 = GUIObjects.Rect(input_layer_overlay, (1, 45), (input_layer.size[0] - 140-10, 10), MacColoursDark.side_bar_colour)
@@ -58,10 +58,10 @@ vertical2 = GUIObjects.Rect(input_layer_overlay, (1, 45), (110, 10), MacColoursD
 
 
 output_layer_overlay = GUIDisplay.Layer(main_window, (440, 55), (20, 122+55+input_layer.size[1]+20), Colours.white)
-id_label_out = GUIObjects.Text(output_layer_overlay, 24, (20, 10), Colours.black, resource_path("SF-Mono-Light.otf"), "id")
+id_label_out = GUIObjects.Text(output_layer_overlay, 24, (20, 10), Colours.black, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), "id")
 vertical2_out = GUIObjects.Rect(output_layer_overlay, (1, 45), (110, 10), MacColoursDark.side_bar_colour)
 underline_out = GUIObjects.Rect(output_layer_overlay, (420, 1), (10, 54), MacColoursDark.side_bar_colour)
-graph_label = GUIObjects.Text(output_layer_overlay, 24, (120, 10), Colours.black, resource_path("SF-Mono-Light.otf"), "Graph")
+graph_label = GUIObjects.Text(output_layer_overlay, 24, (120, 10), Colours.black, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), "Graph")
 
 output_layer = GUIDisplay.ScrollingLayer(main_window, (440, 902-(122+55+input_layer.size[1]+20+output_layer_overlay.size[1])), (20, 122+55+input_layer.size[1]+20+output_layer_overlay.size[1]), Colours.white, y_scroll_speed=75, x_scroll_speed=0)
 
@@ -87,9 +87,9 @@ def fill_input_layer():
         x = input_layer.size[0] - 140
         for bit in sequence:
             new_label = new_label + str(int(bit))
-        new = GUIObjects.Text(input_layer, 24, (x, y), Colours.black, resource_path("SF-Mono-Light.otf"), new_label)
-        new = GUIObjects.Text(input_layer, 24, (20, y), Colours.black, resource_path("SF-Mono-Light.otf"), str(i))
-        new = GUIObjects.Text(input_layer, 24, (120, y), Colours.black, resource_path("SF-Mono-Light.otf"), str(int(new_label, 2)))
+        new = GUIObjects.Text(input_layer, 24, (x, y), Colours.black, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), new_label)
+        new = GUIObjects.Text(input_layer, 24, (20, y), Colours.black, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), str(i))
+        new = GUIObjects.Text(input_layer, 24, (120, y), Colours.black, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), str(int(new_label, 2)))
         y = y + 33
         i = i + 1
 
@@ -108,7 +108,7 @@ def pre_fill_output_layer():
     y = 0
     i = 0
     for out in main_board.outs:
-        new2 = GUIUtils.LabelledButton(output_layer, (90, 80), (10, y+25), 20+i, 24, MacColoursDark.side_bar_colour, resource_path("SF-Mono-Light.otf"), "OUT"+str(i), Colours.white)
+        new2 = GUIUtils.LabelledButton(output_layer, (90, 80), (10, y+25), 20+i, 24, MacColoursDark.side_bar_colour, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), "OUT"+str(i), Colours.white)
         new3 = GUIObjects.Rect(output_layer, (output_layer.size[0]-20-111, 80), (120, y+25), MacColours.side_bar_inactive_colour)
         y = y + 100
         i = i + 1
