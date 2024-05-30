@@ -163,7 +163,7 @@ class FlipFlop(Gate):
                 return True
             else:
                 return False
-        return False
+        return True
 
 
 class DFlipFlop(FlipFlop):
