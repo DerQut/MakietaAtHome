@@ -19,7 +19,7 @@ import LogicElements
 pygame.display.init()
 pygame.font.init()
 
-main_window = GUIDisplay.Window(fps_cap=30, flags=DOUBLEBUF | RESIZABLE, resolution=(1280, 720))
+main_window = GUIDisplay.Window(fps_cap=60, flags=DOUBLEBUF | RESIZABLE, resolution=(1280, 720))
 pygame.display.set_icon(pygame.image.load(resource_path("logo.png")).convert_alpha())
 pygame.display.set_caption("Makieta@Home")
 main_board = PCB.Motherboard(8, 8, 13, 40)
@@ -314,22 +314,21 @@ def loop_action(mouse_pos):
     LogicElements.Gate.out_tick()
 
     for daughterboard in main_board.daughterboards:
-        if daughterboard.is_visible:
+        for component in daughterboard.components:
+            component.update_io_colours()
 
-            for component in daughterboard.components:
-                component.update_io_colours()
+            if component.logic_element == selected_output:
+                for master in selected_output.masters:
+                    if master.daughterboard.is_visible:
+                        pygame.draw.line(daughterboard.surface, master.fill_colour, (mouse_pos[0]-daughterboard.position[0], mouse_pos[1]-daughterboard.position[1]), (master.outlets[0].position[0] + 0.5*master.outlets[0].size[0], master.outlets[0].position[1] + 0.5*master.outlets[0].size[1]), 3)
+                        break
 
-                if component.logic_element == selected_output:
-                    for master in selected_output.masters:
-                        if master.daughterboard.is_visible:
-                            pygame.draw.line(daughterboard.surface, master.fill_colour, (mouse_pos[0]-daughterboard.position[0], mouse_pos[1]-daughterboard.position[1]), (master.outlets[0].position[0] + 0.5*master.outlets[0].size[0], master.outlets[0].position[1] + 0.5*master.outlets[0].size[1]), 3)
+            for inlet in component.inlets:
+                if component.logic_element.inputs[inlet.inlet_id] is not None and not isinstance(component.logic_element, LogicElements.HiddenBuffer):
+                    for master in component.logic_element.inputs[inlet.inlet_id].masters:
+                        if master.daughterboard == component.daughterboard and master.daughterboard.is_visible:
+                            pygame.draw.line(daughterboard.surface, master.fill_colour, (inlet.position[0]+0.5*inlet.size[0], inlet.position[1]+0.5*inlet.size[1]), (master.outlets[0].position[0] + 0.5*master.outlets[0].size[0], master.outlets[0].position[1] + 0.5*master.outlets[0].size[1]), width=3)
                             break
-
-                for inlet in component.inlets:
-                    if component.logic_element.inputs[inlet.inlet_id] is not None and not isinstance(component.logic_element, LogicElements.HiddenBuffer):
-                        for master in component.logic_element.inputs[inlet.inlet_id].masters:
-                            if master.daughterboard == component.daughterboard and master.daughterboard.is_visible:
-                                pygame.draw.line(daughterboard.surface, master.fill_colour, (inlet.position[0]+0.5*inlet.size[0], inlet.position[1]+0.5*inlet.size[1]), (master.outlets[0].position[0] + 0.5*master.outlets[0].size[0], master.outlets[0].position[1] + 0.5*master.outlets[0].size[1]), width=3)
 
 
 def event_action(events, mouse_pos):

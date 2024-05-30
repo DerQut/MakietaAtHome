@@ -130,6 +130,9 @@ class Daughterboard(GUIDisplay.Sublayer):
     def delete(self):
 
         for component in self.components:
+            if isinstance(component, LogicElements.Pin):
+                continue
+
             for out in self.motherboard.outs:
                 if component.logic_element in out.inputs:
                     out.disconnect(0)
@@ -144,6 +147,7 @@ class Daughterboard(GUIDisplay.Sublayer):
         for padding in self.paddings:
             self.paddings.remove(padding)
             self.master.gui_objects.remove(padding)
+
         self.motherboard.daughterboards.remove(self)
         self.window.all_layers.remove(self)
         self.master.sublayers.remove(self)
