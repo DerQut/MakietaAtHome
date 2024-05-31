@@ -153,44 +153,50 @@ def fill_output_layer():
 
 def get_not_daughterboard(is_visible=False):
 
-    x_pos = 0.5*(1920-480 - 24*main_board.slot_resolution) + bg_layer.position[0]
+    x_size = 24
+    y_size = 23
+
+    x_pos = 0.5*(1920-480 - x_size*main_board.slot_resolution) + bg_layer.position[0]
     if not len(main_board.daughterboards):
-        y_pos = 0.33 * (1080 - 20 * main_board.slot_resolution)
+        y_pos = 0.33 * (1080 - y_size * main_board.slot_resolution)
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + main_board.daughterboards[len(main_board.daughterboards)-1].size[1] + main_board.slot_resolution
 
     padding1 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
-    padding2 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 20*main_board.slot_resolution), is_visible=False)
+    padding2 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + y_size*main_board.slot_resolution), is_visible=False)
 
-    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 20), (x_pos, y_pos), is_visible=is_visible)
+    daughterboard = PCB.Daughterboard(bg_layer, main_board, (x_size, y_size), (x_pos, y_pos), is_visible=is_visible)
 
     daughterboard.paddings.append(padding1)
     daughterboard.paddings.append(padding2)
 
     i = 0
     while i < 6:
-        new = PCB.Component(daughterboard, (2, 2), (6, 4 + i*2), Colours.white, LogicElements.Buffer(True))
+        new = PCB.Component(daughterboard, (2, 2), (6, 5.5 + i*2), Colours.white, LogicElements.Buffer(True))
         i = i + 1
 
     i = 0
     while i < 4:
-        new = PCB.Component(daughterboard, (2, 2), (16, 1+i*2), Colours.white, LogicElements.ORGate(2, True))
-        new = PCB.Component(daughterboard, (2, 2), (16, 11 + i * 2), Colours.white, LogicElements.ORGate(2, True))
+        new = PCB.Component(daughterboard, (2, 2), (16, 2.5+i*2), Colours.white, LogicElements.ORGate(2, True))
+        new = PCB.Component(daughterboard, (2, 2), (16, 13.5 + i * 2), Colours.white, LogicElements.ORGate(2, True))
         i = i + 1
 
 
 def get_nand_daughterboard(is_visible=False):
 
-    x_pos = 0.5 * (1920-480 - 24 * main_board.slot_resolution) + 480
+    x_size = 24
+    y_size = 23
+
+    x_pos = 0.5 * (1920-480 - x_size * main_board.slot_resolution) + 480
     if not len(main_board.daughterboards):
-        y_pos = 0.33 * (1920-480 - 21 * main_board.slot_resolution)
+        y_pos = 0.33 * (1920-480 - y_size * main_board.slot_resolution)
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + main_board.daughterboards[len(main_board.daughterboards)-1].size[1] + main_board.slot_resolution
 
     padding1 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos - 2*main_board.slot_resolution), is_visible=False)
-    padding2 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + 21*main_board.slot_resolution), is_visible=False)
+    padding2 = GUIObjects.Rect(bg_layer, (1, 2*main_board.slot_resolution), (0, y_pos + y_size*main_board.slot_resolution), is_visible=False)
 
-    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 21), (x_pos, y_pos), is_visible=is_visible)
+    daughterboard = PCB.Daughterboard(bg_layer, main_board, (x_size, y_size), (x_pos, y_pos), is_visible=is_visible)
 
     daughterboard.paddings.append(padding1)
     daughterboard.paddings.append(padding2)
@@ -198,25 +204,28 @@ def get_nand_daughterboard(is_visible=False):
 
     i = 0
     while i < 2:
-        new = PCB.Component(daughterboard, (2, 4), (6, 1+i*4), Colours.white, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (6, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (16, 1 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
-        new = PCB.Component(daughterboard, (2, 4), (16, 12 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (6, 2+i*4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (6, 13 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (16, 2 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
+        new = PCB.Component(daughterboard, (2, 4), (16, 13 + i * 4), Colours.white, LogicElements.ANDGate(4, True))
         i = i + 1
 
 
 def get_jk_daughterboard(is_visible=False):
 
-    x_pos = 0.5 * (1920-480 - 24 * main_board.slot_resolution) + 480
+    x_size = 24
+    y_size = 23
+
+    x_pos = 0.5 * (1920-480 - x_size * main_board.slot_resolution) + 480
     if not len(main_board.daughterboards):
-        y_pos = 0.33 * (1080 - 21 * main_board.slot_resolution)
+        y_pos = 0.33 * (1080 - y_size * main_board.slot_resolution)
     else:
         y_pos = main_board.daughterboards[len(main_board.daughterboards)-1].position[1] + main_board.daughterboards[len(main_board.daughterboards)-1].size[1] + main_board.slot_resolution
 
     padding1 = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution), (0, y_pos - 2 * main_board.slot_resolution), is_visible=False)
-    padding2 = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution), (0, y_pos + 21 * main_board.slot_resolution), is_visible=False)
+    padding2 = GUIObjects.Rect(bg_layer, (1, 2 * main_board.slot_resolution), (0, y_pos + y_size * main_board.slot_resolution), is_visible=False)
 
-    daughterboard = PCB.Daughterboard(bg_layer, main_board, (24, 23), (x_pos, y_pos), is_visible=is_visible)
+    daughterboard = PCB.Daughterboard(bg_layer, main_board, (x_size, y_size), (x_pos, y_pos), is_visible=is_visible)
 
     daughterboard.paddings.append(padding1)
     daughterboard.paddings.append(padding2)
