@@ -15,7 +15,7 @@ pip install tk
 
 Następnie z sekcji [Releases](https://github.com/DerQut/popMakieta/releases) pobrać i wypakować plik .zip z najnowszego wydania programu.
 
-![image](https://github.com/DerQut/popMakieta/assets/47953909/68f32ea6-868b-4caf-8bb2-d2f142ca6cd4)
+![image](https://github.com/DerQut/MakietaAtHome/assets/47953909/2806712e-1adb-404a-95d3-e5c6e03ae401)
 
 
 ## Funkcje
@@ -30,10 +30,10 @@ Następnie z sekcji [Releases](https://github.com/DerQut/popMakieta/releases) po
 
 ## Galeria
 
-![image](https://github.com/DerQut/popMakieta/assets/47953909/f87a0003-86a4-461e-ae3e-7aab5dfc8ecb)
+![IMG_1820](https://github.com/DerQut/MakietaAtHome/assets/47953909/9416780e-01ad-4435-99db-7786326e78d5)
 
-![image](https://github.com/DerQut/popMakieta/assets/47953909/53cfe425-ed24-4031-b1f3-532cadbb4e63)
+![IMG_1822](https://github.com/DerQut/MakietaAtHome/assets/47953909/6b024dee-7770-4a96-8dda-8dcaae07be78)
 
-![image](https://github.com/DerQut/popMakieta/assets/47953909/8d568549-56b3-4afe-848f-582adff7a390)
+![IMG_1823](https://github.com/DerQut/MakietaAtHome/assets/47953909/bc8bd54d-babb-4c4a-be8f-4c855895f7e8)
 
-
+![IMG_1824](https://github.com/DerQut/MakietaAtHome/assets/47953909/77877527-a874-4a09-b976-054b1ced409a)
