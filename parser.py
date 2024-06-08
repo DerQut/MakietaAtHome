@@ -1,16 +1,23 @@
+import tkinter
+
 from tkinter import filedialog
 from tkinter import colorchooser
 from tkinter import simpledialog
 
+m = tkinter.Tk()
+
 
 def get_value(title, prompt, initial_value):
+    m = tkinter.Tk()
     value = simpledialog.askinteger(title, prompt, initialvalue=initial_value)
+    m.destroy()
     if value is not None:
         return value
     return initial_value
 
 
 def get_file():
+    m = tkinter.Tk()
     filename = filedialog.askopenfilename(
         filetypes=(
             ("JPG files", "*.jpg"),
@@ -19,11 +26,13 @@ def get_file():
             ("All Files", "*.*")
         )
     )
+    m.destroy()
 
     return filename
 
 
 def save_file(title="Zapisz jako...", filetypes=[("BMP files", "*.bmp")], defaultextension=".bmp", confirmoverwrite=False, initialfile="screenshot.bmp"):
+    m = tkinter.Tk()
     filename = filedialog.asksaveasfilename(
         filetypes=filetypes,
         defaultextension=defaultextension,
@@ -32,16 +41,19 @@ def save_file(title="Zapisz jako...", filetypes=[("BMP files", "*.bmp")], defaul
         title=title
 
     )
+    m.destroy()
     return filename
 
 
 def read_file(title="Wczytaj plik", filetypes=[("BMP files", "*.bmp")], defaultextension=".bmp", initialfile="screenshot.bmp"):
+    m = tkinter.Tk()
     filename = filedialog.askopenfilenames(
         filetypes=filetypes,
         defaultextension=defaultextension,
         initialfile=initialfile,
         title=title
     )
+    m.destroy()
     print(filename)
     if filename != () and filename is not None:
         if type(filename) is tuple:
@@ -71,7 +83,9 @@ def get_name(filename):
 
 
 def get_colour(previous_colour):
+    m = tkinter.Tk()
     colour_code = colorchooser.askcolor(title="Choose color", color=previous_colour)
+    m.destroy()
     if bool(colour_code[0]):
         return colour_code[0]
 
@@ -79,7 +93,12 @@ def get_colour(previous_colour):
 
 
 def get_string(title, prompt, initial_value):
+    m = tkinter.Tk()
     value = simpledialog.askstring(title, prompt, initialvalue=initial_value)
+    m.destroy()
     if value is not None:
         return value
     return initial_value
+
+
+m.destroy()

@@ -43,7 +43,7 @@ run_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20
 
 main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
 
-input_layer = GUIDisplay.ScrollingLayer(main_window, (440, 240), (20, 122+55), Colours.white, y_scroll_speed=75, x_scroll_speed=0)
+input_layer = GUIDisplay.ScrollingLayer(main_window, (440, 240), (20, 122+55), Colours.white, y_scroll_speed=200, x_scroll_speed=0)
 
 
 input_layer_overlay = GUIDisplay.Layer(main_window, (440, 55), (20, 122), Colours.white)
@@ -63,7 +63,7 @@ vertical2_out = GUIObjects.Rect(output_layer_overlay, (1, 45), (110, 10), MacCol
 underline_out = GUIObjects.Rect(output_layer_overlay, (420, 1), (10, 54), MacColoursDark.side_bar_colour)
 graph_label = GUIObjects.Text(output_layer_overlay, 24, (120, 10), Colours.black, resource_path("assets/LT_superior_mono/LTSuperiorMono-Regular.otf"), "Graph")
 
-output_layer = GUIDisplay.ScrollingLayer(main_window, (440, 902-(122+55+input_layer.size[1]+20+output_layer_overlay.size[1])), (20, 122+55+input_layer.size[1]+20+output_layer_overlay.size[1]), Colours.white, y_scroll_speed=75, x_scroll_speed=0)
+output_layer = GUIDisplay.ScrollingLayer(main_window, (440, 902-(122+55+input_layer.size[1]+20+output_layer_overlay.size[1])), (20, 122+55+input_layer.size[1]+20+output_layer_overlay.size[1]), Colours.white, y_scroll_speed=200, x_scroll_speed=0)
 
 selected_output = None
 current_tool = PCB.COLOUR
