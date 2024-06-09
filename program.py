@@ -5,6 +5,7 @@ import GUIDisplay
 import GUIObjects
 import GUIUtils
 import PCB
+import ensure_file
 import parser
 import programator
 
@@ -41,9 +42,7 @@ speed_change_button = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480 -
 new_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20-64-10), 0, 24, Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Nowa makieta", fill_colour=MacColoursDark.side_bar_colour)
 run_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20), 3, 24, Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Uruchom")
 
-if not os.path.exists("_PRZEBIEG.txt"):
-    file = open("_PRZEBIEG.txt", "w+")
-    file.write("""00
+przebieg_dir = ensure_file.ensure_file("_PRZEBIEG.txt", """00
 01
 00
 01
@@ -55,9 +54,8 @@ if not os.path.exists("_PRZEBIEG.txt"):
 01
 10
 11111111""")
-    file.close()
 
-main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
+main_board.program(programator.complete_read(przebieg_dir, main_board.out_count))
 
 input_layer = GUIDisplay.ScrollingLayer(main_window, (440, 240), (20, 122+55), Colours.white, y_scroll_speed=200, x_scroll_speed=0)
 
@@ -291,7 +289,7 @@ def button_action(button_id):
                         get_daughterboard(parser.get_value("Nowa makieta", "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- D + JK", 0))
 
                     elif button_id == 1:
-                        main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
+                        main_board.program(programator.complete_read(przebieg_dir, main_board.out_count))
                         fill_input_layer()
 
                     elif button_id == 2:
