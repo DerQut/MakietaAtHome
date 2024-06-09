@@ -32,7 +32,7 @@ name_label = GUIObjects.Text(bg_layer, 24, (20, 20), Colours.white, resource_pat
 
 side_bar = GUIDisplay.Layer(main_window, (480, 1080), (0, 0), MacColoursDark.side_bar_inactive_colour)
 
-file_label = GUIObjects.Text(side_bar, 24, (20, 20), Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Plik: _PRZEBIEG.txt")
+file_label = GUIObjects.Text(side_bar, 24, (20, 20), Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Desktop/_PRZEBIEG.txt")
 file_reload = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480-20-100, 20), 1, 24, Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Odczyt")
 
 speed_label = GUIObjects.Text(side_bar, 24, (20, 66), Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Okres sygnału wejściowego:")
@@ -41,7 +41,23 @@ speed_change_button = GUIUtils.RoundedLabelledButton(side_bar, (100, 36), (480 -
 new_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20-64-10), 0, 24, Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Nowa makieta", fill_colour=MacColoursDark.side_bar_colour)
 run_button = GUIUtils.RoundedLabelledButton(side_bar, (440, 64), (20, 1080-64-20), 3, 24, Colours.white, resource_path("assets/LT_superior/LTSuperior-Regular.otf"), "Uruchom")
 
-main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
+if not os.path.exists(os.path.expanduser("~/Desktop/_PRZEBIEG.txt")):
+    file = open(os.path.expanduser("~/Desktop/_PRZEBIEG.txt"), "w+")
+    file.write("""00
+01
+00
+01
+10
+11
+10
+11
+00
+01
+10
+11111111""")
+    file.close()
+
+main_board.program(programator.complete_read(os.path.expanduser("~/Desktop/_PRZEBIEG.txt"), main_board.out_count))
 
 input_layer = GUIDisplay.ScrollingLayer(main_window, (440, 240), (20, 122+55), Colours.white, y_scroll_speed=200, x_scroll_speed=0)
 
@@ -275,7 +291,7 @@ def button_action(button_id):
                         get_daughterboard(parser.get_value("Nowa makieta", "Wybierz szablon:\n1- NOT + NOR\n2- NAND\n3- D + JK", 0))
 
                     elif button_id == 1:
-                        main_board.program(programator.complete_read("_PRZEBIEG.txt", main_board.out_count))
+                        main_board.program(programator.complete_read(os.path.expanduser("~/Desktop/_PRZEBIEG.txt"), main_board.out_count))
                         fill_input_layer()
 
                     elif button_id == 2:
