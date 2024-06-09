@@ -121,7 +121,8 @@ class Layer:
             self.surface.fill(self.bg_colour)
 
             for gui_object in self.gui_objects:
-                gui_object.draw()
+                if gui_object.position[1] + gui_object.size[1] > 0:
+                    gui_object.draw()
 
     def draw(self):
         self.window.main_layer.blit(self.surface, self.position)
