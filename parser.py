@@ -1,6 +1,11 @@
+import tkinter
+
 from tkinter import filedialog
 from tkinter import colorchooser
 from tkinter import simpledialog
+
+m = tkinter.Tk()
+m.destroy()
 
 
 def get_value(title, prompt, initial_value):
