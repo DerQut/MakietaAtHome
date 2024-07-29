@@ -1,5 +1,9 @@
 # Makieta@Home
 
+## Aktualizacja 29.07.2024
+
+Ze względu na niezadowalającą wydajność rozpoczęto pracę nad rekonstrukcją programu w PyQt6. W związku z tym poniższe repozytorium nie jest już wspierane. Nowa wersja programu: [Makieta@Home Neo](https://github.com/DerQut/MakietaAtHomeNeo)
+
 Makieta@Home to program stworzony przy współpracy z Katedrą Nanometrologii dla studentów Wydziału Elektroniki, Fotoniki i Mikrosystemów Politechniki Wrocławskiej w celu zapewnienia oprogramowania przydatnego w nauce zasad działania przerzutników, bramek logicznych oraz przede wszystkim makiet dydaktycznych używanych podczas zajęć laboratoryjnych w ramach kursów PTC II oraz PTCiM II
 
 ## Instalacja
