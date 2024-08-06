@@ -390,9 +390,12 @@ def event_action(events, mouse_pos):
 
 def thread_action():
     while True:
+        time_before = time.time()
         LogicElements.Gate.in_tick()
         LogicElements.Gate.out_tick()
-        time.sleep(0.025)
+        time_after = time.time()
+
+        time.sleep(0.1 - (time_after - time_before))
 
 
 fill_input_layer()
