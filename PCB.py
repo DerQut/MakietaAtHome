@@ -160,7 +160,6 @@ class Daughterboard(GUIDisplay.Sublayer):
                     padding.position = (padding.position[0], padding.position[1] - self.size[1])
 
 
-
 class Component(GUIUtils.Button):
 
     def __init__(self, daughterboard: Daughterboard, size: tuple, position: tuple, fill_colour: tuple, logic_element: LogicElements.Gate, is_visible=True):
