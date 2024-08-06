@@ -1,3 +1,5 @@
+import time
+
 import pygame.transform
 from pygame import DOUBLEBUF, RESIZABLE
 
@@ -333,8 +335,6 @@ def button_action(button_id):
 def loop_action(mouse_pos):
     fill_output_layer()
     main_board.send_programming()
-    LogicElements.Gate.in_tick()
-    LogicElements.Gate.out_tick()
 
     for daughterboard in main_board.daughterboards:
         for component in daughterboard.components:
@@ -386,6 +386,13 @@ def event_action(events, mouse_pos):
             elif event.key == pygame.K_TAB:
                 for daughterboard in main_board.daughterboards:
                     daughterboard.is_visible = not daughterboard.is_visible
+
+
+def thread_action():
+    while True:
+        LogicElements.Gate.in_tick()
+        LogicElements.Gate.out_tick()
+        time.sleep(0.025)
 
 
 fill_input_layer()

@@ -1,3 +1,5 @@
+import threading
+
 import pygame
 from pygame.locals import DOUBLEBUF, FULLSCREEN
 
@@ -47,6 +49,9 @@ class Window:
 
         self.is_running = True
         clock = pygame.time.Clock()
+
+        thread = threading.Thread(target=program.thread_action, daemon=True)
+        thread.start()
 
         while self.is_running:
 
