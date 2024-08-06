@@ -5,7 +5,6 @@ from sys import platform
 def ensure_file(filename: str, default_write: str = ""):
 
     path = ""
-    print(platform)
 
     if platform == "linux" or platform == "linux2":
         path = os.path.expanduser(f"~/Desktop/{filename}")
