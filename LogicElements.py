@@ -221,3 +221,15 @@ class HiddenBuffer(Buffer):
 
     def disconnect(self, port):
         return
+
+    def calculate_output(self):
+        super().calculate_output()
+        gate = self.inputs[0]
+        if isinstance(gate, JKFlipFlop):
+            if isinstance(gate.inputs[0], Gate) and isinstance(gate.inputs[4], Gate):
+                if (not gate.inputs[0].external_state) and (not gate.inputs[4].external_state):
+                    self.internal_state = False
+        elif isinstance(gate, DFlipFlop):
+            if isinstance(gate.inputs[0], Gate) and isinstance(gate.inputs[3], Gate):
+                if (not gate.inputs[0].external_state) and (not gate.inputs[3].external_state):
+                    self.internal_state = False
