@@ -27,22 +27,21 @@ class Gate:
         self.internal_state = self.is_inverted
 
     def send_output(self):
-        self.external_state = self.internal_state
+        self.external_state = self.internal_state ^ self.is_inverted
 
     def check_for_any_connections(self):
-        has_any = False
-        for input in self.inputs:
-            if input is not None:
-                has_any = True
-        return has_any
+        for gate in self.inputs:
+            if isinstance(gate, Gate):
+                return True
+        return False
 
-    def connect(self, other, port):
+    def connect(self, other, port: int):
         if isinstance(other, Pin):
             if not other.has_input:
                 return 1
         other.inputs[port] = self
 
-    def disconnect(self, port):
+    def disconnect(self, port: int):
         self.inputs[port] = None
 
     def delete(self):
@@ -78,15 +77,18 @@ class ANDGate(Gate):
         self.textures = [pygame.image.load(assets.resource_path("assets/and.png")).convert_alpha(), pygame.image.load(assets.resource_path("assets/nand.png"))]
 
     def calculate_output(self):
-        if self.check_for_any_connections():
-            self.internal_state = not self.is_inverted
-            for input in self.inputs:
-                if isinstance(input, Gate):
-                    if not input.external_state:
-                        self.internal_state = self.is_inverted
-                        return 0
-        else:
-            self.internal_state = self.is_inverted
+
+        if not self.check_for_any_connections():
+            self.internal_state = False
+            return -1
+
+        self.internal_state = True
+        for gate in self.inputs:
+            if isinstance(gate, Gate):
+                if not gate.external_state:
+                    self.internal_state = False
+                    return 0
+        return 1
 
 
 class ORGate(Gate):
@@ -96,14 +98,16 @@ class ORGate(Gate):
         self.textures = [pygame.image.load(assets.resource_path("assets/or.png")).convert_alpha(), pygame.image.load(assets.resource_path("assets/nor.png"))]
 
     def calculate_output(self):
-        self.internal_state = self.is_inverted
-        if self.check_for_any_connections():
-            for input in self.inputs:
-                if isinstance(input, Gate):
-                    if input.external_state:
-                        self.internal_state = not self.is_inverted
-                        return 0
+        self.internal_state = False
+        if not self.check_for_any_connections():
+            return -1
 
+        for gate in self.inputs:
+            if isinstance(gate, Gate):
+                if gate.external_state:
+                    self.internal_state = True
+                    return 1
+        return 0
 
 
 class Buffer(Gate):
@@ -113,13 +117,12 @@ class Buffer(Gate):
         self.textures = [pygame.image.load(assets.resource_path("assets/buffer.png")).convert_alpha(), pygame.image.load(assets.resource_path("assets/not.png"))]
 
     def calculate_output(self):
-        if self.check_for_any_connections():
-            if self.is_inverted:
-                self.internal_state = not self.inputs[0].external_state
-            else:
-                self.internal_state = self.inputs[0].external_state
-        else:
-            self.internal_state = self.is_inverted
+        if not self.check_for_any_connections():
+            self.internal_state = False
+            return -1
+
+        self.internal_state = self.inputs[0].external_state
+        return 0
 
 
 class Pin(Buffer):
