@@ -192,10 +192,10 @@ class Component(GUIUtils.Button):
         if not (isinstance(self.logic_element, LogicElements.Pin) and not self.logic_element.has_input):
             i = self.size[1]/(self.logic_element.max_inputs+1)
             while len(self.inlets) < self.logic_element.max_inputs:
-                new = Inlet(self, (self.position[0]-0.25*self.daughterboard.motherboard.slot_resolution, self.position[1]+(len(self.inlets)+1)*i-0.125*self.daughterboard.motherboard.slot_resolution), len(self.inlets), (0.25*self.daughterboard.motherboard.slot_resolution, 0.25*self.daughterboard.motherboard.slot_resolution))
+                new = Inlet(self, (self.position[0]-0.375*self.daughterboard.motherboard.slot_resolution, self.position[1]+(len(self.inlets)+1)*i-0.375*0.5*self.daughterboard.motherboard.slot_resolution), len(self.inlets), (0.375*self.daughterboard.motherboard.slot_resolution, 0.375*self.daughterboard.motherboard.slot_resolution))
 
         if not (isinstance(self.logic_element, LogicElements.Pin) and not self.logic_element.has_output):
-            new = Outlet(self, (self.position[0]+self.size[0], self.position[1]+0.5*(self.size[1]-0.5*self.daughterboard.motherboard.slot_resolution)), 1, (self.daughterboard.motherboard.slot_resolution*0.25, self.daughterboard.motherboard.slot_resolution*0.5))
+            new = Outlet(self, (self.position[0]+self.size[0], self.position[1]+0.5*(self.size[1]-0.625*self.daughterboard.motherboard.slot_resolution)), 1, (self.daughterboard.motherboard.slot_resolution*0.375, self.daughterboard.motherboard.slot_resolution*0.625))
 
     def draw(self):
         if not self.is_visible:
