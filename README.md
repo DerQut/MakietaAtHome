@@ -1,6 +1,6 @@
 # Makieta@Home
 
-Makieta@Home to program stworzony przy współpracy z Katedrą Nanometrologii dla studentów Wydziału Elektroniki, Fotoniki i Mikrosystemów Politechniki Wrocławskiej w celu zapewnienia oprogramowania przydatnego w nauce zasad działania przerzutników, bramek logicznych oraz przede wszystkim makiet dydaktycznych używanych podczas zajęć laboratoryjnych w ramach kursów PTC II oraz PTCiM II
+Makieta@Home to program stworzony dla studentów Wydziału Elektroniki, Fotoniki i Mikrosystemów Politechniki Wrocławskiej w celu zapewnienia oprogramowania przydatnego w nauce zasad działania przerzutników, bramek logicznych oraz przede wszystkim makiet dydaktycznych używanych podczas zajęć laboratoryjnych w ramach kursów PTC II oraz PTCiM II
 
 ## Instalacja
 
