@@ -268,9 +268,10 @@ class Component(GUIUtils.Button):
                 self.daughterboard.motherboard.update_pin_colour(self.logic_element, new_colour)
 
         elif parameter == INVERSION:
-            self.logic_element.is_inverted = not self.logic_element.is_inverted
             if isinstance(self.logic_element, LogicElements.FlipFlop):
                 self.logic_element.is_rising_edge = not self.logic_element.is_rising_edge
+            else:
+                self.logic_element.is_inverted = not self.logic_element.is_inverted
 
         elif parameter == SIZE:
             ...
